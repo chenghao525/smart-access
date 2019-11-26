@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Partition from '../components/partition/Partition'
+import EntranceGuard from '../components/entranceGuard/EntranceGuard'
 
 Vue.use(Router)
 
@@ -8,8 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
+      name: 'Partition',
+      component: Partition
+    },
+    {
+      path: '/EntranceGuard',
+      name: 'EntranceGuard',
+      component: EntranceGuard
+    },
   ]
 })
