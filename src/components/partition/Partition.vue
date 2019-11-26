@@ -1,10 +1,10 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="partition_container">
     <div class="partition_content">
-      <div style="padding: 0 5px;">
+      <div style="padding: 0 100px;">
         <div class="top-btn-container">
-          <el-button class="top-btn" type="primary" size="medium" @click="handleDelete">分区删除</el-button>
-          <el-button class="top-btn" type="primary" size="medium" @click="handleAdd">分区增加</el-button>
+          <el-button class="top-btn" type="primary" size="large" @click="handleDelete">分区删除</el-button>
+          <el-button class="top-btn" type="primary" size="large" @click="handleAdd">分区增加</el-button>
         </div>
         <el-table class="el-table-container"
                   fixed
@@ -114,9 +114,15 @@
   .top-btn-container{
     display: flex;
     justify-content:flex-end;
+    padding: 30px 0;
   }
-  .el-button .top-btn .el-button--primary .el-button--medium{
+  .top-btn{
+    font-size: 15px;
     background-color: #37C6C0 !important;
     border: #37C6C0 !important;
+    border-radius: 60px;
+    margin: 0 1em;
+    height: 40px;
+    width: 120px;
   }
 </style>

@@ -1,13 +1,15 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="partition_container">
     <div class="partition_content">
+      <el-row class="above-row">
+      <el-col :span="12">
       <el-form ref="form"
               :model="form"
               label-position="right"
               label-width="120px"
               :rules="rules"
               :inline="true"
-              style="margin-top:30px;">
+              style="margin-top:30px;padding-left:100px;">
         <el-form-item label="门禁名称:"
                       prop="entranceGuardName"
                       >
@@ -15,13 +17,19 @@
                     placeholder="请填写门禁名">
           </el-input>
         </el-form-item>
-        <el-button class="search_btn" type="primary" size="medium" @click="handleSearch(form)" style="margin-left: 78px">查询</el-button>
-        <el-button class="top_btn" type="primary" size="medium" @click="handleEdit()" style="margin-left: 78px">门禁修改</el-button>
-        <el-button class="top_btn" type="primary" size="medium" @click="handleDelete()" style="margin-left: 38px">门禁删除</el-button>
-         <el-button class="top_btn" type="primary" size="medium" @click="handleAdd()" style="margin-left: 38px">门禁增加</el-button>
+        <el-button class="search_btn" type="primary" size="large" @click="handleSearch(form)" style="margin-left: 78px">查询</el-button>
       </el-form>
+      </el-col>
+      <el-col :span="12">
+       <div class="top-btn-container">
+            <el-button class="top-btn" type="primary" size="large" @click="handleEdit()" style="margin-left: 78px">门禁修改</el-button>
+            <el-button class="top-btn" type="primary" size="large" @click="handleDelete()" style="margin-left: 38px">门禁删除</el-button>
+            <el-button class="top-btn" type="primary" size="large" @click="handleAdd()" style="margin-left: 38px">门禁增加</el-button>
+        </div>
+      </el-col>
+      </el-row>
 
-      <div style="padding: 0 5px;">
+      <div style="padding: 0 100px;">
         <el-table class="el-table-container"
                   fixed
                   ref="filterTable"
@@ -124,3 +132,26 @@
 </script>
 
 
+<style scoped>
+  .search_btn{
+    height: 40px;
+    width: 120px;
+    font-size: 15px;
+    background-color: #37C6C0 !important;
+    border: #37C6C0 !important;
+  }
+  .top-btn-container{
+    display: flex;
+    justify-content:flex-start;
+    padding: 30px 0;
+  }
+  .top-btn{
+    font-size: 15px;
+    background-color: #37C6C0 !important;
+    border: #37C6C0 !important;
+    border-radius: 60px;
+    margin: 0 1em;
+    height: 40px;
+    width: 120px;
+  }
+</style>

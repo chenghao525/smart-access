@@ -2,22 +2,31 @@
     <div class="navbar">
       <el-menu
         :default-active="activeIndex2"
-        class="el-menu-demo"
+        class="my-el-menu"
         mode="horizontal"
         @select="handleSelect"
         background-color="#37C6C0"
         text-color="#FFF"
         active-text-color="#FFF">
-        <div class="navbar-container">
-          <div class="web-name" style="float:left;font-size: 40px;padding:20px 0px;color:white;margin-left:1%">
-              智慧门禁
-          </div>
-          <div class="user-menu-item">
-            <el-menu-item index="1">分区</el-menu-item>
-            <el-menu-item index="2" >门禁</el-menu-item>
-            <el-menu-item index="3">人脸识别设备</el-menu-item>
-          </div>
-        </div>
+        <el-row class="navbar-container">
+          <el-col :span = "6">
+            <div  class="web-name">智慧门禁</div>
+          </el-col>
+          <el-col :span = "12">
+            <div class="user-menu-item">
+              <div>
+                <el-menu-item index="1">分区</el-menu-item>
+                <el-menu-item index="2" >门禁</el-menu-item>
+                <el-menu-item index="3">人脸识别设备</el-menu-item>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span = "6">
+            <div>
+              <div class="login">人员姓名</div>
+            </div>
+          </el-col>
+        </el-row>
       </el-menu>
         <router-view/>
     </div>
@@ -34,7 +43,7 @@ export default {
       };
     },
     methods: {
-      handleSelect(key, keyPath) {
+      handleSelect: function(key, keyPath) {
         switch(key){
           case '1':
             this.$router.push('/').catch(err => {})
@@ -45,35 +54,44 @@ export default {
           case '3':
             this.$router.push('/EntranceGuard').catch(err => {})
             break
+          default:
+            break
         }
       }
     }
 }
 </script>
 <style>
-  .navbar-container{
-    width: 100%;
-    min-height: 90px;
+  .my-el-menu{
+    height: 80px;
+    padding-left: 100px;
   }
-  .user-menu-item{
-    display: flex;
-    width: 50vw;
+  .web-name{
+    float:left;
     font-size: 35px;
-    margin-left: 5%;
-    padding-left: 60px;
-    margin-left: 18px;
-    justify-content: space-between;
+    font-weight: bold;
+    padding:20px 0px;
+    color:white;
+    margin-left:1%
+  }
+  .el-menu-item{
+    display: flex;
+    padding: 0 50px;
+    font-size: 25px;
+    height: 80px !important;
+    border-bottom-color: transparent !important;
     align-items: center;
-    height: 90px;
   }
   .el-menu-item.is-active {
     background-color: #FFCC00 !important;
-    height: 90px;
   }
-  .el-menu-item{
-    height: 90px;
+  .login{
+    color: #FFF;
     display: flex;
-    font-size: 35px;
     align-items: center;
+    justify-content: flex-end;
+    height: 80px !important;
+    padding: 0 100px;
   }
+
 </style>
