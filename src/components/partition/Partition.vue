@@ -29,31 +29,41 @@
           </el-table-column>
         </el-table>
       </div>
+      <!-- 增加分区弹窗 -->
+      <PartitionAddForm :show-dialog="showPartitionAddDialog"
+                        @close="hideDialog"
+      ></PartitionAddForm>
     </div>
   </div>
 </template>
-
+  
 
 <script>
+  import PartitionAddForm from './components/PartitionAddForm'
+
   export default {
     name: "Partition",
+    components: {
+      PartitionAddForm
+    },
     data() {
       return {
+        showPartitionAddDialog : false,
         tableData: [
           {
-          partitionName : "ss",
-          partitionNum : "001",
-          partitionEntranceGuard : "002"
+            partitionName : "ss",
+            partitionNum : "001",
+            partitionEntranceGuard : "002"
           },
           {
-          partitionName : "aa",
-          partitionNum : "023",
-          partitionEntranceGuard : "002"
+            partitionName : "aa",
+            partitionNum : "023",
+            partitionEntranceGuard : "002"
           },
           {
-          partitionName : "bb",
-          partitionNum : "031",
-          partitionEntranceGuard : "002"
+            partitionName : "bb",
+            partitionNum : "031",
+            partitionEntranceGuard : "002"
           }
         ],
         selectedPartition: false
@@ -71,6 +81,13 @@
        */
       clickedRefresh(val) {
         this.initData()
+      },
+      /**
+       * 关闭弹窗
+       */
+      hideDialog(){
+        this.showPartitionAddDialog = false
+        console.log("Close!!")
       },
       /**
        * 获取表单数据
@@ -100,7 +117,7 @@
 
       },
       handleAdd(){
-
+        this.showPartitionAddDialog = true;
       }
     },
     mounted() {
