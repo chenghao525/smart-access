@@ -1,32 +1,21 @@
 <template>
-  <el-dialog class="partition-add-container"
+  <el-dialog class="partition-delete-container"
              :visible.sync="visible"
              :title="title"
              width="600px">
-    <div class="partition-add-content">
-      <el-form class="form-container"
-               label-position="right"
-               :model="partitionAddForm"
-               ref="partitionAddForm"
-               :rules="rules">
-          <el-form-item label="分区名称" prop="partitionName">
-            <el-input v-model="partitionAddForm.partitionName" size="medium" placeholder="请输入分区名称"></el-input>
-          </el-form-item>
-          <el-form-item label="分区编号" prop="partitionNum">
-            <el-input v-model="partitionAddForm.partitionNum" size="medium" placeholder="请输入分区编号"></el-input>
-          </el-form-item>
-      </el-form>
+    <div class="partition-delete-content">
+      <h2>是否确认删除？</h2>
     </div>
     <div class="btn-container" >
-      <!-- <el-button type="primary" class="bottom-btn" size="large" @click="handleCancel()">取消</el-button> -->
-      <el-button type="primary" class="bottom-btn" size="large" @click="handleSave()">分区添加</el-button>
+      <el-button type="primary" class="bottom-btn" size="large" @click="handleCancel">取消</el-button>
+      <el-button type="primary" class="bottom-btn" size="large" @click="handleDelete">确认</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
   export default {
-    name: "PartitionAddForm",
+    name: "partitionDeleteForm",
     props: {
       showDialog: {
         type: Boolean,
@@ -36,19 +25,7 @@
     data() {
       return {
         visible : this.showDialog,
-        title: "新增分区",
-        partitionAddForm:{
-          partitionName: "",
-          partitionNum: "",
-        },
-        rules: {
-          partitionName: [
-            {required: true, message: '请输入分区名称', trigger: 'blur'}
-          ],
-          partitionNum: [
-            {required: true, message: '请输入分区编号', trigger: 'blur'}
-          ]
-        }
+        title: "删除分区",
       }
     },
     methods:{
@@ -56,10 +33,12 @@
        * 关闭弹框
        */
       handleCancel() {
-        this.$refs['partitionAddForm'].resetFields()
         this.visible = false,
         this.$emit('close')
       },
+      handleDelete(){
+        console.log("Delete");
+      }
     },
     mounted() {
     },
@@ -74,12 +53,14 @@
       }
     }
   }
-
 </script>
 
 <style>
   .el-dialog{
     border-radius: 30px;
+  }
+  .el-form-item__label{
+    width: 130px;
   }
   .el-form-item__content {
     display: inline-block !important;
@@ -105,7 +86,7 @@
   .el-input__inner{
     height: 2em;
     }
-  .partition-add-content{
+  .partition-delete-content{
     display: flex;
     justify-content: center;
   }
@@ -115,16 +96,17 @@
   .btn-container{
     padding-top: 30px;
     text-align: center;
-  } 
+  }     
 </style>
 
 <style scoped>
-  .bottom-btn{
-    width: 16em;
+ .bottom-btn{
+    width: 8em;
     height: 3em;
     background-color: #37C6C0;
     border: transparent;
-    border-radius: 60px;
+    border-radius: 8px;
+    margin: 0px 10px;
   }
   .bottom-btn:hover{
     color: #FFFFFF;

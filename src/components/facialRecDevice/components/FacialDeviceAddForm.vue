@@ -1,32 +1,55 @@
 <template>
-  <el-dialog class="partition-add-container"
+  <el-dialog class="facialDevice-add-container"
              :visible.sync="visible"
              :title="title"
              width="600px">
-    <div class="partition-add-content">
+    <div class="facialDevice-add-content">
       <el-form class="form-container"
                label-position="right"
-               :model="partitionAddForm"
-               ref="partitionAddForm"
+               :model="facialDeviceAddForm"
+               ref="facialDeviceAddForm"
                :rules="rules">
-          <el-form-item label="分区名称" prop="partitionName">
-            <el-input v-model="partitionAddForm.partitionName" size="medium" placeholder="请输入分区名称"></el-input>
+          <el-form-item label="设备型号：" prop="enterPartition">
+            <el-select v-model="facialDeviceAddForm.enterPartition" size="medium" placeholder="请选择设备型号">
+              <!-- <el-option v-for="item in deptList"
+                       :key="item.deptId"
+                       :label="item.deptName"
+                       :value="item.deptId">
+            </el-option> -->
+            </el-select>
           </el-form-item>
-          <el-form-item label="分区编号" prop="partitionNum">
-            <el-input v-model="partitionAddForm.partitionNum" size="medium" placeholder="请输入分区编号"></el-input>
+          <el-form-item label="IP:" prop="facialDeviceName">
+            <el-input v-model="facialDeviceAddForm.facialDeviceName" size="medium" placeholder="请输入IP"></el-input>
+          </el-form-item>
+          <el-form-item label="方向" prop="enterPartition">
+            <el-select v-model="facialDeviceAddForm.enterPartition" size="medium" placeholder="请选择方向">
+              <!-- <el-option v-for="item in deptList"
+                       :key="item.deptId"
+                       :label="item.deptName"
+                       :value="item.deptId">
+            </el-option> -->
+            </el-select>
+          </el-form-item>
+          <el-form-item label="设备所属门禁" prop="enterPartition">
+            <el-select v-model="facialDeviceAddForm.enterPartition" size="medium" placeholder="请选择设备所属门禁">
+              <!-- <el-option v-for="item in deptList"
+                       :key="item.deptId"
+                       :label="item.deptName"
+                       :value="item.deptId">
+            </el-option> -->
+            </el-select>
           </el-form-item>
       </el-form>
     </div>
     <div class="btn-container" >
-      <!-- <el-button type="primary" class="bottom-btn" size="large" @click="handleCancel()">取消</el-button> -->
-      <el-button type="primary" class="bottom-btn" size="large" @click="handleSave()">分区添加</el-button>
+      <el-button type="primary" class="bottom-btn" size="large" @click="handleAdd">添加设备</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
   export default {
-    name: "PartitionAddForm",
+    name: "FacialDeviceAddForm",
     props: {
       showDialog: {
         type: Boolean,
@@ -36,10 +59,9 @@
     data() {
       return {
         visible : this.showDialog,
-        title: "新增分区",
-        partitionAddForm:{
-          partitionName: "",
-          partitionNum: "",
+        title: "新增设备",
+        facialDeviceAddForm:{
+
         },
         rules: {
           partitionName: [
@@ -56,10 +78,13 @@
        * 关闭弹框
        */
       handleCancel() {
-        this.$refs['partitionAddForm'].resetFields()
+        this.$refs['facialDeviceAddForm'].resetFields()
         this.visible = false,
         this.$emit('close')
       },
+      handleAdd(){
+        console.log("Add");
+      }
     },
     mounted() {
     },
@@ -74,12 +99,14 @@
       }
     }
   }
-
 </script>
 
 <style>
   .el-dialog{
     border-radius: 30px;
+  }
+  .el-form-item__label{
+    width: 130px;
   }
   .el-form-item__content {
     display: inline-block !important;
@@ -105,7 +132,7 @@
   .el-input__inner{
     height: 2em;
     }
-  .partition-add-content{
+  .facialDevice-add-content{
     display: flex;
     justify-content: center;
   }
@@ -115,9 +142,8 @@
   .btn-container{
     padding-top: 30px;
     text-align: center;
-  } 
+  }
 </style>
-
 <style scoped>
   .bottom-btn{
     width: 16em;

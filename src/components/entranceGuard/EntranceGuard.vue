@@ -1,6 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <div class="partition_container">
-    <div class="partition_content">
+  <div class="entranceGuard_container">
+    <div class="entranceGuard_content">
+      <div style="padding: 0 100px;">
       <el-row class="above-row">
       <el-col :span="12">
       <el-form ref="form"
@@ -9,7 +10,7 @@
               label-width="120px"
               :rules="rules"
               :inline="true"
-              style="margin-top:30px;padding-left:100px;">
+              style="margin-top:30px;">
         <el-form-item label="门禁名称:"
                       prop="entranceGuardName"
                       >
@@ -17,19 +18,19 @@
                     placeholder="请填写门禁名">
           </el-input>
         </el-form-item>
-        <el-button class="search_btn" type="primary" size="large" @click="handleSearch(form)" style="margin-left: 78px">查询</el-button>
+        <el-button class="search_btn" type="primary" size="large" @click="handleSearch(form)" style="margin-left: 38px">查询</el-button>
       </el-form>
       </el-col>
       <el-col :span="12">
        <div class="top-btn-container">
-            <el-button class="top-btn" type="primary" size="large" @click="handleEdit()" style="margin-left: 78px">门禁修改</el-button>
-            <el-button class="top-btn" type="primary" size="large" @click="handleDelete()" style="margin-left: 38px">门禁删除</el-button>
-            <el-button class="top-btn" type="primary" size="large" @click="handleAdd()" style="margin-left: 38px">门禁增加</el-button>
+            <el-button class="top-btn" type="primary" size="large" @click="handleEdit" style="margin-left: 78px">门禁修改</el-button>
+            <el-button class="top-btn" type="primary" size="large" @click="handleDelete">门禁删除</el-button>
+            <el-button class="top-btn" type="primary" size="large" @click="handleAdd">门禁增加</el-button>
         </div>
       </el-col>
       </el-row>
 
-      <div style="padding: 0 100px;">
+      <div>
         <el-table class="el-table-container"
                   fixed
                   ref="filterTable"
@@ -57,17 +58,38 @@
           </el-table-column>
         </el-table>
       </div>
-      
+       <EntranceGuardEditForm :show-dialog="showEntranceGuardEditDialog"
+                        @close="hideEntranceGuardEditDialog"
+      ></EntranceGuardEditForm>
+      <EntranceGuardAddForm :show-dialog="showEntranceGuardAddDialog"
+                        @close="hideEntranceGuardAddDialog"
+      ></EntranceGuardAddForm>
+      <EntranceGuardDeleteForm :show-dialog="showEntranceGuardDeleteDialog"
+                        @close="hideEntranceGuardDeleteDialog"
+      ></EntranceGuardDeleteForm>
     </div>
+  </div>
   </div>
 </template>
 
 
 <script>
+  import EntranceGuardAddForm from './components/EntranceGuardAddForm'
+  import EntranceGuardEditForm from './components/EntranceGuardEditForm'
+  import EntranceGuardDeleteForm from './components/EntranceGuardDeleteForm'
+
   export default {
     name: "EntranceGuard",
+    components: {
+      EntranceGuardAddForm,
+      EntranceGuardEditForm,
+      EntranceGuardDeleteForm
+    },
     data() {
       return {
+        showEntranceGuardEditDialog:false,
+        showEntranceGuardAddDialog:false,
+        showEntranceGuardDeleteDialog:false,
         tableData: [],
         form: {
           entranceGuardName:''
@@ -86,7 +108,6 @@
        * @param val
        */
       clickedRefresh(val) {
-        this.initData()
       },
       /**
        * 获取表单数据
@@ -111,29 +132,43 @@
       //   }).catch(err => {
       //     console.log(err)
       //   })
+      }, 
+      handleSearch(form){
+      },
+      handleEdit(){
+        this.showEntranceGuardEditDialog = true
+      },
+      handleDelete(){
+        this.showEntranceGuardDeleteDialog = true
+      },
+      handleAdd(){
+        this.showEntranceGuardAddDialog = true
+      },
+      hideEntranceGuardEditDialog(){
+        this.showEntranceGuardEditDialog = false
+      },
+      hideEntranceGuardAddDialog(){
+        this.showEntranceGuardAddDialog = false
+      },
+      hideEntranceGuardDeleteDialog(){
+        this.showEntranceGuardDeleteDialog = false
       },
     },
-    handleSearch(form){
-
-    },
-    handleEdit(){
-
-    },
-    handleDelete(){
-
-    },
-    handleAdd(){
-
-    },
     mounted() {
-      this.initData();
     }
   }
-
 </script>
 
+<style>
+  .el-input__inner{
+    height: 3em !important;
+  }
+</style>
 
 <style scoped>
+  .el-input__inner{
+    height: 3em !important;
+  }
   .search_btn{
     height: 40px;
     width: 120px;
@@ -143,7 +178,7 @@
   }
   .top-btn-container{
     display: flex;
-    justify-content:flex-start;
+    justify-content:flex-end;
     padding: 30px 0;
   }
   .top-btn{

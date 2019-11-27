@@ -31,8 +31,11 @@
       </div>
       <!-- 增加分区弹窗 -->
       <PartitionAddForm :show-dialog="showPartitionAddDialog"
-                        @close="hideDialog"
+                        @close="hideAddDialog"
       ></PartitionAddForm>
+      <PartitionDeleteForm :show-dialog="showPartitionDeleteDialog"
+                        @close="hideDeleteDialog"
+      ></PartitionDeleteForm>
     </div>
   </div>
 </template>
@@ -40,15 +43,18 @@
 
 <script>
   import PartitionAddForm from './components/PartitionAddForm'
+  import PartitionDeleteForm from './components/PartitionDeleteForm'
 
   export default {
     name: "Partition",
     components: {
-      PartitionAddForm
+      PartitionAddForm,
+      PartitionDeleteForm
     },
     data() {
       return {
         showPartitionAddDialog : false,
+        showPartitionDeleteDialog: false,
         tableData: [
           {
             partitionName : "ss",
@@ -85,9 +91,11 @@
       /**
        * 关闭弹窗
        */
-      hideDialog(){
+      hideAddDialog(){
         this.showPartitionAddDialog = false
-        console.log("Close!!")
+      },
+      hideDeleteDialog(){
+        this.showPartitionDeleteDialog = false
       },
       /**
        * 获取表单数据
@@ -113,11 +121,11 @@
       //     console.log(err)
       //   })
       },
-      handleDelete(){
-
-      },
       handleAdd(){
         this.showPartitionAddDialog = true;
+      },
+      handleDelete(){
+        this.showPartitionDeleteDialog = true;
       }
     },
     mounted() {

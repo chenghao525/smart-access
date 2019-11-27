@@ -46,13 +46,13 @@ export default {
       handleSelect: function(key, keyPath) {
         switch(key){
           case '1':
-            this.$router.push('/').catch(err => {})
+            this.$router.push('/Partition').catch(err => {})
             break
           case '2':
             this.$router.push('/EntranceGuard').catch(err => {})
             break
           case '3':
-            this.$router.push('/EntranceGuard').catch(err => {})
+            this.$router.push('/FacialRecDevice').catch(err => {})
             break
           default:
             break

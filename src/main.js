@@ -19,9 +19,15 @@ Vue.prototype.$get = get
 window.api = API
 
 /* eslint-disable no-new */
+// new Vue({
+//   el: '#app',
+//   router,
+//   components: { Layout },
+//   template: '<Layout/>'
+// })
 new Vue({
   el: '#app',
   router,
-  components: { Layout },
-  template: '<Layout/>'
+  components: { App },
+  template: '<App/>'
 })
