@@ -10,7 +10,7 @@
               label-width="120px"
               :rules="rules"
               :inline="true"
-              style="margin-top:30px;">
+              style="margin:50px 0px;">
         <el-form-item label="门禁名称:"
                       prop="entranceGuardName"
                       >
@@ -179,7 +179,7 @@
   .top-btn-container{
     display: flex;
     justify-content:flex-end;
-    padding: 30px 0;
+    padding: 50px 0;
   }
   .top-btn{
     font-size: 15px;
