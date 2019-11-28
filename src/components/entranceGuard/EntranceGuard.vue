@@ -1,10 +1,11 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
   <div class="entranceGuard_container">
     <div class="entranceGuard_content">
       <div style="padding: 0 100px;">
       <el-row class="above-row">
       <el-col :span="12">
-      <el-form ref="form"
+      <div class="search-form">
+        <el-form ref="form"
               :model="form"
               label-position="right"
               label-width="120px"
@@ -15,11 +16,13 @@
                       prop="entranceGuardName"
                       >
           <el-input v-model="form.entranceGuardName"
-                    placeholder="请填写门禁名">
+                    placeholder="请填写门禁名"
+                    class="search-input">
           </el-input>
         </el-form-item>
         <el-button class="search_btn" type="primary" size="large" @click="handleSearch(form)" style="margin-left: 38px">查询</el-button>
       </el-form>
+      </div>
       </el-col>
       <el-col :span="12">
        <div class="top-btn-container">
@@ -32,29 +35,33 @@
 
       <div>
         <el-table class="el-table-container"
-                  fixed
                   ref="filterTable"
+                  highlight-current-row
                   :data="tableData">
           <!-- <el-table-column type="index" 
                            label="序号"
                            header-align="center"
                            align="center">
           </el-table-column> -->
-          <el-table-column label="选择" width="60px" align="center" header-align="center">
+          <el-table-column label="选择" min-width="10%" align="center" header-align="center">
             <template slot-scope="scope">
               <el-radio :label="scope.$index" v-model="selectedEntranceGuard"
               @change.native="getTemplateRow(scope.$index,scope.row)" style="margin-left: 10px;">&nbsp;</el-radio>
             </template>
           </el-table-column>
-          <el-table-column label="门禁ID" prop="partitionName">
+          <el-table-column label="门禁ID" prop="entranceGuardId" min-width="15%" align="center" show-overflow-tooltip>
           </el-table-column>
-          <el-table-column label="进向连接区域" prop="patitionNum">
+          <el-table-column label="进向连接区域" prop="enterPartition" min-width="15%" align="center" show-overflow-tooltip>
           </el-table-column>
-          <el-table-column label="出向连接区域" prop="partitionEntranceGuard">
+          <el-table-column label="出向连接区域" prop="exitPartition" min-width="15%" align="center" show-overflow-tooltip>
           </el-table-column>
-          <el-table-column label="门禁名称" prop="partitionEntranceGuard">
+          <el-table-column label="门禁名称" prop="entranceGuardName" min-width="15%" align="center" show-overflow-toolti>
           </el-table-column>
-          <el-table-column label="操作" prop="partitionEntranceGuard">
+          <el-table-column label="操作" prop="partitionEntranceGuard" min-width="30%" align="center">
+          <template slot-scope="scope">
+  　　　　　　<el-button type="info" @click="deviceInfoEdit(scope.row.entranceGuardId)">设备信息编辑</el-button>
+  　　　　　　<el-button type="info" @click="facialRecDevice(scope.row.entranceGuardId)">人脸识别设备</el-button>
+　　　　    </template>
           </el-table-column>
         </el-table>
       </div>
@@ -90,7 +97,14 @@
         showEntranceGuardEditDialog:false,
         showEntranceGuardAddDialog:false,
         showEntranceGuardDeleteDialog:false,
-        tableData: [],
+        tableData: [
+          {
+          entranceGuardId:'1',
+          enterPartition: 'cc',
+          exitPartition:'dd',
+          entranceGuardName:'hgh'
+          }
+        ],
         form: {
           entranceGuardName:''
         },
@@ -133,6 +147,9 @@
       //     console.log(err)
       //   })
       }, 
+      deviceInfoEdit(entranceGuardId){
+        this.$router.push({path: '/EntranceGuard/DeviceInfoEdit', query: {entranceGuardId: entranceGuardId}})
+      },
       handleSearch(form){
       },
       handleEdit(){
@@ -159,16 +176,8 @@
   }
 </script>
 
-<style>
-  .el-input__inner{
-    height: 3em !important;
-  }
-</style>
 
 <style scoped>
-  .el-input__inner{
-    height: 3em !important;
-  }
   .search_btn{
     height: 40px;
     width: 120px;

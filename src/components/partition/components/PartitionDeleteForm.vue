@@ -55,51 +55,11 @@
   }
 </script>
 
-<style>
-  .el-dialog{
-    border-radius: 30px;
-  }
-  .el-form-item__label{
-    width: 130px;
-  }
-  .el-form-item__content {
-    display: inline-block !important;
-  }
-  .el-dialog__header{
-    padding: 20px !important;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    text-align: center;
-    background-color: #37C6C0;
-    height: 28px;
-  }
-  .el-dialog__title{
-    line-height: 28px !important;
-    font-size: 25px;
-    font-weight: bold;
-    color: #ffffff;
-  }
-  .el-form-item__label{
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .el-input__inner{
-    height: 2em;
-    }
+<style scoped>
   .partition-delete-content{
     display: flex;
     justify-content: center;
   }
-  .el-input{
-     width: 217px;
-  }
-  .btn-container{
-    padding-top: 30px;
-    text-align: center;
-  }     
-</style>
-
-<style scoped>
  .bottom-btn{
     width: 8em;
     height: 3em;

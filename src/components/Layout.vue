@@ -46,7 +46,7 @@ export default {
       handleSelect: function(key, keyPath) {
         switch(key){
           case '1':
-            this.$router.push('/Partition').catch(err => {})
+            this.$router.push('/').catch(err => {})
             break
           case '2':
             this.$router.push('/EntranceGuard').catch(err => {})
@@ -61,7 +61,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
   .my-el-menu{
     height: 80px;
     padding-left: 100px;
@@ -74,17 +74,7 @@ export default {
     color:white;
     margin-left:1%
   }
-  .el-menu-item{
-    display: flex;
-    padding: 0 50px;
-    font-size: 25px;
-    height: 80px !important;
-    border-bottom-color: transparent !important;
-    align-items: center;
-  }
-  .el-menu-item.is-active {
-    background-color: #FFCC00 !important;
-  }
+  
   .login{
     color: #FFF;
     display: flex;
@@ -93,5 +83,4 @@ export default {
     height: 80px !important;
     padding: 0 100px;
   }
-
 </style>

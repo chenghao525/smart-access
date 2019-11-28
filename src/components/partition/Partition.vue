@@ -7,7 +7,6 @@
           <el-button class="top-btn" type="primary" size="large" @click="handleAdd">分区增加</el-button>
         </div>
         <el-table class="el-table-container"
-                  fixed
                   ref="filterTable"
                   :data="tableData">
           <!-- <el-table-column type="index" 
@@ -15,17 +14,17 @@
                            header-align="center"
                            align="center">
           </el-table-column> -->
-          <el-table-column label="选择" width="60px" align="center" header-align="center">
+          <el-table-column label="选择" min-width="10%" align="center" header-align="center">
             <template slot-scope="scope">
               <el-radio :label="scope.$index" v-model="selectedPartition"
               @change.native="getTemplateRow(scope.$index,scope.row)" style="margin-left: 10px;">&nbsp;</el-radio>
             </template>
           </el-table-column>
-          <el-table-column label="分区名称" prop="partitionName">
+          <el-table-column label="分区名称" min-width="10%" prop="partitionName" align="center">
           </el-table-column>
-          <el-table-column label="分区编号" prop="partitionNum">
+          <el-table-column label="分区编号" min-width="10%" prop="partitionNum" align="center">
           </el-table-column>
-          <el-table-column label="分区下包含的门禁" prop="partitionEntranceGuard">
+          <el-table-column label="分区下包含的门禁" min-width="70%" prop="partitionEntranceGuard" align="center">
           </el-table-column>
         </el-table>
       </div>
@@ -136,18 +135,5 @@
 </script>
 
 <style scoped>
-  .top-btn-container{
-    display: flex;
-    justify-content:flex-end;
-    padding: 30px 0;
-  }
-  .top-btn{
-    font-size: 15px;
-    background-color: #37C6C0 !important;
-    border: #37C6C0 !important;
-    border-radius: 60px;
-    margin: 0 1em;
-    height: 40px;
-    width: 120px;
-  }
+
 </style>
