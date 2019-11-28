@@ -8,21 +8,17 @@
         </div>
         <el-table class="el-table-container"
                   ref="filterTable"
-                  :data="tableData">
-          <!-- <el-table-column type="index" 
-                           label="序号"
-                           header-align="center"
-                           align="center">
-          </el-table-column> -->
+                  :data="tableData"
+                  header-row-style="background-color:#CCCCCC; color:#000000">
           <el-table-column label="选择" min-width="10%" align="center" header-align="center">
             <template slot-scope="scope">
               <el-radio :label="scope.$index" v-model="selectedPartition"
-              @change.native="getTemplateRow(scope.$index,scope.row)" style="margin-left: 10px;">&nbsp;</el-radio>
+              @change.native="getSelectedPartitionID(scope.row)" style="margin-left: 10px;">&nbsp;</el-radio>
             </template>
           </el-table-column>
           <el-table-column label="分区名称" min-width="10%" prop="partitionName" align="center">
           </el-table-column>
-          <el-table-column label="分区编号" min-width="10%" prop="partitionNum" align="center">
+          <el-table-column label="分区编号" min-width="10%" prop="partitionID" align="center">
           </el-table-column>
           <el-table-column label="分区下包含的门禁" min-width="70%" prop="partitionEntranceGuard" align="center">
           </el-table-column>
@@ -31,9 +27,12 @@
       <!-- 增加分区弹窗 -->
       <PartitionAddForm :show-dialog="showPartitionAddDialog"
                         @close="hideAddDialog"
+                        @refresh="getPartitionList"
       ></PartitionAddForm>
       <PartitionDeleteForm :show-dialog="showPartitionDeleteDialog"
-                        @close="hideDeleteDialog"
+                          :seletedPartitionID="selectedPartitionID"
+                          @close="hideDeleteDialog"
+                          @refresh="getPartitionList"
       ></PartitionDeleteForm>
     </div>
   </div>
@@ -41,6 +40,7 @@
   
 
 <script>
+  import {GET_PARTITION} from '../../api'
   import PartitionAddForm from './components/PartitionAddForm'
   import PartitionDeleteForm from './components/PartitionDeleteForm'
 
@@ -54,6 +54,7 @@
       return {
         showPartitionAddDialog : false,
         showPartitionDeleteDialog: false,
+        selectedPartitionID: "",
         tableData: [
           {
             partitionName : "ss",
@@ -71,7 +72,7 @@
             partitionEntranceGuard : "002"
           }
         ],
-        selectedPartition: false
+        selectedPartition: ""
       }
     },
     methods:{
@@ -79,6 +80,7 @@
        * 获取数据
        */
       initData() {
+        this.getPartitionList();
       },
       /**
        * 点击重载按钮后重载数据
@@ -96,29 +98,24 @@
       hideDeleteDialog(){
         this.showPartitionDeleteDialog = false
       },
+      getSelectedPartitionID(partitionID){
+        this.selectedPartitionID = partitionID;
+      },
       /**
        * 获取表单数据
        */
       getPartitionList(){
-      //  this.tableData=[]
-      //   const params = {
-      //     projectCode: JSON.parse(localStorage.getItem('projectInfo')).projectCode,
-      //     memberNo:this.$route.query.memberNo
-      //   }
-      //   this.$post(ATTENDANCE_ALONE_LIST, params).then(res => {
-      //     if (res.code === 200) {
-      //       if(res.data){
-      //         this.tableData = res.data.attendanceStatisBeans
-      //         this.pagination.total = res.data.totalCount
-      //         this.pagination.pageSize = res.data.pageSize
-      //         this.pagination.currentPage = res.data.pageNum
-      //       }
-      //       // console.log(res)
-            
-      //     }
-      //   }).catch(err => {
-      //     console.log(err)
-      //   })
+        console.log("Cha!!")
+        this.tableData=[]
+        this.$post(GET_PARTITION," ").then(res=>{
+          if(res.code === '1'){
+            console.log("获取成功！");
+            this.tableData=res.data;
+            console.log("DATA", res.data);
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
       },
       handleAdd(){
         this.showPartitionAddDialog = true;

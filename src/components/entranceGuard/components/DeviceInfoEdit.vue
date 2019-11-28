@@ -1,15 +1,15 @@
 <template>
   <div class="deviceInfo_container">
     <div class="deviceInfo_content">
-      <div style="padding: 0 300px;">
+      <div style="padding: 0 700px;">
         <div class="top-btn-container">
             <el-button class="top-btn" type="primary" size="large" @click="handleReturn">返回</el-button>
         </div>
         <el-form  class="device-info-form" 
                   ref="deviceInfoForm" 
                   :model="deviceInfoForm" 
-                  :inline="true"
-                  label-width="150px" 
+                  inline="true"
+                  label-width="200px" 
                   label-position="left">
           <el-row>
             <el-col :span="12">
@@ -75,6 +75,9 @@ export default {
 
 
 <style scoped>
+  .el-form-item{
+    width: 100%;
+  }
   .device-info-form >>> .el-input__inner {
     margin-left: 10% !important;
     height: 3em !important;

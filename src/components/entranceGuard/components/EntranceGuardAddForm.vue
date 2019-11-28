@@ -22,7 +22,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="出向连接区域" prop="exitrPartition">
-            <el-select v-model="entranceGuardAddForm.enterPartition" size="medium" placeholder="请输入出向连接区域"></el-select>
+            <el-select v-model="entranceGuardAddForm.exitrPartition" size="medium" placeholder="请输入出向连接区域"></el-select>
           </el-form-item>
       </el-form>
     </div>
@@ -46,15 +46,20 @@
         visible : this.showDialog,
         title: "新增门禁",
         entranceGuardAddForm:{
-
+          entranceGuardName:"",
+          enterPartition:"",
+          exitrPartition:""
         },
         rules: {
-          partitionName: [
-            {required: true, message: '请输入分区名称', trigger: 'blur'}
+          entranceGuardName: [
+            {required: true, message: '请输入门禁名称', trigger: 'blur'}
           ],
-          partitionNum: [
-            {required: true, message: '请输入分区编号', trigger: 'blur'}
-          ]
+          enterPartition: [
+            {required: true, message: '请输入进向连接区域', trigger: 'blur'}
+          ],
+          exitrPartition: [
+            {required: true, message: '请输入出向连接区域', trigger: 'blur'}
+          ],
         }
       }
     },
@@ -69,6 +74,18 @@
       },
       handleAdd(){
         console.log("Add");
+        let params = {
+          entranceGuardName:""
+        }
+        this.$post(ADD_PARTITION,params).then(res=>{
+          if(res.code === '1'){
+            console.log("添加成功！");
+            this.$emit('refresh');
+            this.handleCancel();
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
       }
     },
     mounted() {

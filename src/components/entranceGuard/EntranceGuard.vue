@@ -10,8 +10,7 @@
               label-position="right"
               label-width="120px"
               :rules="rules"
-              :inline="true"
-              style="margin:50px 0px;">
+              :inline="true">
         <el-form-item label="门禁名称:"
                       prop="entranceGuardName"
                       >
@@ -37,16 +36,12 @@
         <el-table class="el-table-container"
                   ref="filterTable"
                   highlight-current-row
-                  :data="tableData">
-          <!-- <el-table-column type="index" 
-                           label="序号"
-                           header-align="center"
-                           align="center">
-          </el-table-column> -->
+                  :data="tableData"
+                   header-row-style="background-color:#CCCCCC; color:#000000">
           <el-table-column label="选择" min-width="10%" align="center" header-align="center">
             <template slot-scope="scope">
               <el-radio :label="scope.$index" v-model="selectedEntranceGuard"
-              @change.native="getTemplateRow(scope.$index,scope.row)" style="margin-left: 10px;">&nbsp;</el-radio>
+              @change.native="getSelectedEntranceGuard(scope.row.entranceGuardId)" style="margin-left: 10px;">&nbsp;</el-radio>
             </template>
           </el-table-column>
           <el-table-column label="门禁ID" prop="entranceGuardId" min-width="15%" align="center" show-overflow-tooltip>
@@ -61,18 +56,23 @@
           <template slot-scope="scope">
   　　　　　　<el-button type="info" @click="deviceInfoEdit(scope.row.entranceGuardId)">设备信息编辑</el-button>
   　　　　　　<el-button type="info" @click="facialRecDevice(scope.row.entranceGuardId)">人脸识别设备</el-button>
-　　　　    </template>
+　　　　   </template>
           </el-table-column>
         </el-table>
       </div>
        <EntranceGuardEditForm :show-dialog="showEntranceGuardEditDialog"
+                        :selectedEntranceGuard="selectedEntranceGuardID"
                         @close="hideEntranceGuardEditDialog"
+                        @refresh="getEntranceGuard"
       ></EntranceGuardEditForm>
       <EntranceGuardAddForm :show-dialog="showEntranceGuardAddDialog"
                         @close="hideEntranceGuardAddDialog"
+                        @refresh="getEntranceGuard"
       ></EntranceGuardAddForm>
       <EntranceGuardDeleteForm :show-dialog="showEntranceGuardDeleteDialog"
+                        :selectedEntranceGuard="selectedEntranceGuardID"
                         @close="hideEntranceGuardDeleteDialog"
+                        @refresh="getEntranceGuard"
       ></EntranceGuardDeleteForm>
     </div>
   </div>
@@ -84,6 +84,7 @@
   import EntranceGuardAddForm from './components/EntranceGuardAddForm'
   import EntranceGuardEditForm from './components/EntranceGuardEditForm'
   import EntranceGuardDeleteForm from './components/EntranceGuardDeleteForm'
+  import {GET_ENTRANCEGUARD} from '../../api'
 
   export default {
     name: "EntranceGuard",
@@ -97,6 +98,7 @@
         showEntranceGuardEditDialog:false,
         showEntranceGuardAddDialog:false,
         showEntranceGuardDeleteDialog:false,
+        selectedEntranceGuardID:"",
         tableData: [
           {
           entranceGuardId:'1',
@@ -105,6 +107,12 @@
           entranceGuardName:'hgh'
           }
         ],
+        pagination: {
+          currentPage: 1,
+          numOfSinglePages: 1,
+          pageSize: 10,
+          total: 0
+        },
         form: {
           entranceGuardName:''
         },
@@ -116,6 +124,7 @@
        * 获取数据
        */
       initData() {
+        getEntranceGuard();
       },
       /**
        * 点击重载按钮后重载数据
@@ -126,29 +135,37 @@
       /**
        * 获取表单数据
        */
-      getPartitionList(){
-      //  this.tableData=[]
-      //   const params = {
-      //     projectCode: JSON.parse(localStorage.getItem('projectInfo')).projectCode,
-      //     memberNo:this.$route.query.memberNo
-      //   }
-      //   this.$post(ATTENDANCE_ALONE_LIST, params).then(res => {
-      //     if (res.code === 200) {
-      //       if(res.data){
-      //         this.tableData = res.data.attendanceStatisBeans
-      //         this.pagination.total = res.data.totalCount
-      //         this.pagination.pageSize = res.data.pageSize
-      //         this.pagination.currentPage = res.data.pageNum
-      //       }
-      //       // console.log(res)
-            
-      //     }
-      //   }).catch(err => {
-      //     console.log(err)
-      //   })
-      }, 
+      getEntranceGuard(){
+        this.tableData=[]
+        let params = {
+          currentPage: 1,
+        }
+        this.$post(GET_ENTRANCEGUARD,params).then(res=>{
+          if(res.code === '1'){
+            console.log("获取成功！");
+            tableData = res.data.entranceGuardList;
+            currentPage = res.data.currentPage;
+            numOfSinglePages = res.data.numOfSinglePages;
+            total = res.data.total;
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
+      },
+      handleAdd(){
+        this.showPartitionAddDialog = true;
+      },
+      handleDelete(){
+        this.showPartitionDeleteDialog = true;
+      },
       deviceInfoEdit(entranceGuardId){
         this.$router.push({path: '/EntranceGuard/DeviceInfoEdit', query: {entranceGuardId: entranceGuardId}})
+      },
+      /**
+       * 获取选中门禁ID
+       */
+      getSelectedEntranceGuard(entranceGuardID){
+        this.selectedEntranceGuardID = entranceGuardID;
       },
       handleSearch(form){
       },
@@ -172,31 +189,17 @@
       },
     },
     mounted() {
+      initData();
     }
   }
 </script>
 
 
-<style scoped>
-  .search_btn{
-    height: 40px;
-    width: 120px;
-    font-size: 15px;
-    background-color: #37C6C0 !important;
-    border: #37C6C0 !important;
+<style scoped>  
+  .el-form-item{
+    margin-bottom: 0px !important;
   }
-  .top-btn-container{
-    display: flex;
-    justify-content:flex-end;
-    padding: 50px 0;
-  }
-  .top-btn{
-    font-size: 15px;
-    background-color: #37C6C0 !important;
-    border: #37C6C0 !important;
-    border-radius: 60px;
-    margin: 0 1em;
-    height: 40px;
-    width: 120px;
+  .search-form{
+    padding: 60px 0 !important;
   }
 </style>

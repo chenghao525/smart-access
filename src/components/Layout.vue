@@ -62,25 +62,7 @@ export default {
 }
 </script>
 <style scoped>
-  .my-el-menu{
-    height: 80px;
-    padding-left: 100px;
-  }
-  .web-name{
-    float:left;
-    font-size: 35px;
-    font-weight: bold;
-    padding:20px 0px;
-    color:white;
-    margin-left:1%
-  }
-  
-  .login{
-    color: #FFF;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 80px !important;
-    padding: 0 100px;
-  }
+ .el-col-12[data-v-005bfc5a]{
+   padding:0 10% !important;
+ }
 </style>

@@ -20,11 +20,16 @@
       showDialog: {
         type: Boolean,
         default: false
+      },
+      seletedPartitionID: {
+        type: String,
+        default:""
       }
     },
     data() {
       return {
         visible : this.showDialog,
+        deletePartitionID: this.seletedPartitionID,
         title: "删除分区",
       }
     },
@@ -37,7 +42,18 @@
         this.$emit('close')
       },
       handleDelete(){
-        console.log("Delete");
+        let params = {
+          partitionId: this.deletePartitionID,
+        }
+        this.$post(DELETE_PARTITION,params).then(res=>{
+          if(res.code === '1'){
+            console.log("删除成功！");
+            this.$emit('refresh');
+            this.handleCancel();
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
       }
     },
     mounted() {

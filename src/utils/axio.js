@@ -2,6 +2,8 @@ import axios from 'axios'
 import {BASE_URL} from '../api/index'
 import router from '../router'
 
+
+axios.defaults.baseURL = BASE_URL
 /**
  * 封装get请求，使用方式为this.$get
  * @param url

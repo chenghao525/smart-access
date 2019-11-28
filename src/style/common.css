@@ -6,7 +6,7 @@
   float:left;
   font-size: 35px;
   font-weight: bold;
-  padding:20px 0px;
+  padding:15px 0px;
   color:white;
   margin-left:1%
 }
@@ -32,8 +32,16 @@
 .el-dialog{
   border-radius: 30px;
 }
+.el-form-item{
+  margin-bottom: 15px !important;
+}
+.el-form--inline .el-form-item{
+  margin-right: 0px !important;
+}
 .el-form-item__label{
   width: 130px;
+  font-size: 18px;
+  font-weight: bold;
 }
 .el-form-item__content {
   display: inline-block !important;
@@ -52,10 +60,6 @@
   font-weight: bold;
   color: #ffffff;
 }
-.el-form-item__label{
-  font-size: 18px;
-  font-weight: bold;
-}
 .el-input__inner{
   height: 3em;
 }
@@ -69,7 +73,7 @@
 .top-btn-container{
   display: flex;
   justify-content:flex-end;
-  padding: 50px 0;
+  padding: 60px 0;
 }
 .top-btn{
   font-size: 15px;
@@ -77,20 +81,19 @@
   border: #37C6C0 !important;
   border-radius: 60px !important;
   margin: 0 1em !important;
+  height: 42px;
+  width: 120px;
+}
+.search_btn{
   height: 40px;
   width: 120px;
+  font-size: 15px;
+  background-color: #37C6C0 !important;
+  border: #37C6C0 !important;
 }
 .el-dialog__headerbtn{
   font-weight: 700 !important;
   font-size: 30px !important;
-}
-
-.el-form-item__label{
-  width: 130px;
-}
-.el-form-item__label{
-  font-size: 18px;
-  font-weight: bold;
 }
 .bottom-btn{
   width: 16em;
