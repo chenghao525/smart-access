@@ -1,7 +1,7 @@
 <template>
   <div class="deviceInfo_container">
     <div class="deviceInfo_content">
-      <div style="padding: 0 700px;">
+      <div style="margin: 0 200px;">
         <div class="top-btn-container">
             <el-button class="top-btn" type="primary" size="large" @click="handleReturn">返回</el-button>
         </div>

@@ -18,12 +18,17 @@ const API = {
     GET_ENTRANCEGUARD:'/maintain/getAllEntranceGuard', //获取所有门禁
 
 
-
-
     /****************** 人脸识别设备  *******************/
 
-
-
+    GET_FACEDEVICEINFO: '/maintain/getAllFaceRecDevInfo',//获取所有人脸识别设备信息
+    GET_FACEDEVICEINFO_IP: '/maintain/getFaceRecDevInfoByIp',//获取指定人脸识别设备信息（通过ip）
+    GET_FACEDEVICEINFO_SN: '/maintain/getFaceRecDevInfoBySn',//获取指定人脸识别设备信息（通过sn）
+    GET_FACEDEVICEINFO_GUARD: '/maintain/getFaceRecDevInfoByEntranceGuardId ',//获取指定人脸识别设备信息（通过门禁）
+    DELETE_FACEDEVICE: '/maintain/deleteFaceRecDev',//删除人脸识别设备
+    ADD_FACEDEVICE: '/maintain/addFaceRecDev',//添加人脸识别设备
+    GET_FACEDEVICE_OPT_RECORD:'/maintain/getFaceRecDevOptRecord',//获取操作记录
+    GET_FACEDEVICE_PERSON:'/maintain/getFaceRecDevPerson',//获取已录入人员
+    
 
 
 

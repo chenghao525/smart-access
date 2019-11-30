@@ -15,21 +15,27 @@
                       prop="SN"
                       >
           <el-input v-model="form.SN"
-                    placeholder="请输入关键字">
+                    placeholder="请输入关键字"
+                    @input="inputSN"
+                    :disabled="disableSNSearch">
           </el-input>
         </el-form-item>
         <el-form-item label="IP:"
                       prop="IP"
                       >
           <el-input v-model="form.IP"
-                    placeholder="请输入关键字">
+                    placeholder="请输入关键字"
+                    @input="inputIP"
+                    :disabled="disableIPSearch">
           </el-input>
         </el-form-item>
         <el-form-item label="所属门禁:"
                       prop="entranceGuard"
                       >
           <el-input v-model="form.entranceGuard"
-                    placeholder="请输入关键字">
+                    placeholder="请输入关键字"
+                    @input="inputName"
+                    :disabled="disableNameSearch">
           </el-input>
         </el-form-item>
         <el-button class="search_btn" type="primary" size="large" @click="handleSearch(form)" style="margin-left: 38px">查询</el-button>
@@ -51,8 +57,8 @@
                    header-row-style="background-color:#CCCCCC; color:#000000">
           <el-table-column label="选择" min-width="10%" align="center" header-align="center">
             <template slot-scope="scope">
-              <el-radio :label="scope.$index" v-model="selectedEntranceGuard"
-              @change.native="getTemplateRow(scope.$index,scope.row)" style="margin-left: 10px;">&nbsp;</el-radio>
+              <el-radio :label="scope.$index" v-model="selectedDevice"
+              @change.native="getDeviceID(scope.row.d_device_id)" style="margin-left: 10px;">&nbsp;</el-radio>
             </template>
           </el-table-column>
           <el-table-column label="SN" prop="d_device_id" min-width="10%" align="center">
@@ -74,12 +80,16 @@
 　　　　   </template>
           </el-table-column>
         </el-table>
+        <CustomPagination :pagination="pagination" @currentPageChange="getCurrentPage"></CustomPagination>
       </div>
        <FacialDeviceAddForm :show-dialog="showFacialDeviceAddDialog"
                         @close="hideFacialDeviceAddDialog"
+                        @refresh="getDeviceList(1)"
       ></FacialDeviceAddForm>
       <FacialDeviceDeleteForm :show-dialog="showFacialDeviceDeleteDialog"
                         @close="hideFacialDeviceDeleteDialog"
+                        @refresh="getDeviceList(1)"
+                        :selectedDeleteDeviceID="seletedDeleteDeviceID"
       ></FacialDeviceDeleteForm>
     </div>
   </div>
@@ -92,6 +102,8 @@
   import FacialDeviceDeleteForm from './components/FacialDeviceDeleteForm'
   import OperateRecordTable from './components/OperateRecordTable'
   import FaceRecDevPerson from './components/FaceRecDevPersonTable'
+  import CustomPagination from '../../custom_components/CustomPagination'
+  import {GET_FACEDEVICEINFO,GET_FACEDEVICEINFO_IP,GET_FACEDEVICEINFO_SN,GET_FACEDEVICEINFO_GUARD} from '../../api'
 
   export default {
     name: "FacialRecDevice",
@@ -99,12 +111,18 @@
      FacialDeviceAddForm,
      FacialDeviceDeleteForm,
      OperateRecordTable,
-     FaceRecDevPerson
+     FaceRecDevPerson,
+     CustomPagination
     },
     data() {
       return {
         showFacialDeviceAddDialog:false,
         showFacialDeviceDeleteDialog:false,
+        disableSNSearch:false,
+        disableIPSearch:false,
+        disableNameSearch:false,
+        selectedDevice:"",
+        seletedDeleteDeviceID:"",
         tableData: [
           {
             "d_device_id":"1",
@@ -120,6 +138,11 @@
           IP:'',
           entranceGuard:''
         },
+        pagination:{
+          currentPage:1,
+          total:0,
+          numOfSinglePages:10
+        },
         rules: {},
       }
     },
@@ -128,6 +151,7 @@
        * 获取数据
        */
       initData() {
+        this.getDeviceList(this.pagination.currentPage);
       },
       /**
        * 点击重载按钮后重载数据
@@ -135,29 +159,59 @@
        */
       clickedRefresh(val) {
       },
+       /**
+       * 获取搜索框状态
+       */
+      inputSN(e){
+          if(e.length !== 0){
+            this.disableIPSearch = true;
+            this.disableNameSearch = true;
+          }
+          else{
+            this.disableIPSearch = false;
+            this.disableNameSearch = false;
+          }
+      },
+      inputIP(e){
+        if(e.length !== 0){
+            this.disableSNSearch = true;
+            this.disableNameSearch = true;
+          }
+          else{
+            this.disableSNSearch = false;
+            this.disableNameSearch = false;
+          }
+      },
+      inputName(e){
+        if(e.length !== 0){
+            this.disableIPSearch = true;
+            this.disableSNSearch = true;
+          }
+          else{
+            this.disableIPSearch = false;
+            this.disableSNSearch = false;
+          } 
+      },
       /**
        * 获取表单数据
        */
-      getPartitionList(){
-      //  this.tableData=[]
-      //   const params = {
-      //     projectCode: JSON.parse(localStorage.getItem('projectInfo')).projectCode,
-      //     memberNo:this.$route.query.memberNo
-      //   }
-      //   this.$post(ATTENDANCE_ALONE_LIST, params).then(res => {
-      //     if (res.code === 200) {
-      //       if(res.data){
-      //         this.tableData = res.data.attendanceStatisBeans
-      //         this.pagination.total = res.data.totalCount
-      //         this.pagination.pageSize = res.data.pageSize
-      //         this.pagination.currentPage = res.data.pageNum
-      //       }
-      //       // console.log(res)
-            
-      //     }
-      //   }).catch(err => {
-      //     console.log(err)
-      //   })
+      getDeviceList(currentPage){
+       this.tableData=[]
+        const params = {
+          currentPage: this.pagination.currentPage
+        }
+        this.$post(GET_FACEDEVICEINFO, params).then(res => {
+          if (res.code === '1') {
+            if(res.data){
+              this.tableData = res.data.devList
+              this.pagination.total = res.data.totalCount
+              this.pagination.numOfSinglePages = res.data.numOfSinglePages
+              this.pagination.currentPage = res.data.currentPage
+            }      
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       }, 
       /**
        * 获取操作记录
@@ -170,6 +224,16 @@
        */
       faceRecDevPerson(deviceID){
         this.$router.push({path: '/FacialRecDevice/FaceRecDevPersonTable', query: {deviceID: deviceID}})
+      },
+      getCurrentPage(val){
+        this.pagination.currentPage = val;
+        this.getDeviceList(val)
+      },
+       /**
+       * 获取选中行设备id
+       */
+      getDeviceID(deviceID){
+        this.seletedDeleteDeviceID = deviceID
       },
       handleSearch(form){
       },
@@ -187,6 +251,8 @@
       },
     },
     mounted() {
+      this.initData();
+      this.$emit('hdindex',3)
     }
   }
 </script>

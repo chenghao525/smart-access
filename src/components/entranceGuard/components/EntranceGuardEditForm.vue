@@ -14,15 +14,10 @@
           </el-form-item>
           <el-form-item label="进向连接区域" prop="enterPartition">
             <el-select v-model="entranceGuardEditForm.enterPartition" size="medium" placeholder="请输入进向连接区域">
-              <!-- <el-option v-for="item in deptList"
-                       :key="item.deptId"
-                       :label="item.deptName"
-                       :value="item.deptId">
-            </el-option> -->
             </el-select>
           </el-form-item>
-          <el-form-item label="出向连接区域" prop="exitrPartition">
-            <el-select v-model="entranceGuardEditForm.enterPartition" size="medium" placeholder="请输入出向连接区域"></el-select>
+          <el-form-item label="出向连接区域" prop="exitPartition">
+            <el-select v-model="entranceGuardEditForm.exitPartition" size="medium" placeholder="请输入出向连接区域"></el-select>
           </el-form-item>
       </el-form>
     </div>
@@ -39,14 +34,20 @@
       showDialog: {
         type: Boolean,
         default: false
+      },
+      selectedEntranceGuard:{
+        type:Object,
+        default:{}
       }
     },
     data() {
       return {
         visible : this.showDialog,
         title: "修改门禁",
-        entranceGuardEditForm:{
-
+        entranceGuardEditForm: {
+          entranceGuardName:"",
+          enterPartition:"",
+          exitPartition:""
         },
         rules: {
           partitionName: [
@@ -62,6 +63,7 @@
        /**
        * 关闭弹框
        */
+      //TODOS: 弹窗更改表格数据了
       handleCancel() {
         this.$refs['entranceGuardEditForm'].resetFields()
         this.visible = false,
@@ -81,6 +83,10 @@
         if (!val) {
           this.handleCancel()
         }
+      },
+      selectedEntranceGuard(val, oldVal){
+        console.log("!!!!",val.enterPartition)
+        // this.entranceGuardEditForm = val;
       }
     }
   }

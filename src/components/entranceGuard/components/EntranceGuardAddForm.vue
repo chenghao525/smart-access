@@ -6,6 +6,8 @@
     <div class="entranceGuard-add-content">
       <el-form class="form-container"
                label-position="right"
+               label-width="140px"
+               inline="true"
                :model="entranceGuardAddForm"
                ref="entranceGuardAddForm"
                :rules="rules">
@@ -14,15 +16,23 @@
           </el-form-item>
           <el-form-item label="进向连接区域" prop="enterPartition">
             <el-select v-model="entranceGuardAddForm.enterPartition" size="medium" placeholder="请输入进向连接区域">
-              <!-- <el-option v-for="item in deptList"
-                       :key="item.deptId"
-                       :label="item.deptName"
-                       :value="item.deptId">
-            </el-option> -->
+              <el-option
+                      v-for="item in enterPartitionOptions"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="出向连接区域" prop="exitrPartition">
-            <el-select v-model="entranceGuardAddForm.exitrPartition" size="medium" placeholder="请输入出向连接区域"></el-select>
+            <el-select v-model="entranceGuardAddForm.exitPartition" size="medium" placeholder="请输入出向连接区域">
+              <el-option
+                      v-for="item in exitPartitionOptions"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+              </el-option>
+            </el-select>
           </el-form-item>
       </el-form>
     </div>
@@ -33,6 +43,8 @@
 </template>
 
 <script>
+  import {ADD_ENTRANCEGUARD} from '../../../api'
+
   export default {
     name: "EntranceGuardAddForm",
     props: {
@@ -60,7 +72,27 @@
           exitrPartition: [
             {required: true, message: '请输入出向连接区域', trigger: 'blur'}
           ],
-        }
+        },
+        enterPartitionOptions: [
+          {
+          value: '1',
+          label: '1'
+          }, 
+          {
+          value: '2',
+          label: '2'
+          }, 
+        ],
+        exitPartitionOptions: [
+          {
+          value: '1',
+          label: '1'
+          }, 
+          {
+          value: '2',
+          label: '2'
+          }, 
+        ]
       }
     },
     methods:{
@@ -75,9 +107,11 @@
       handleAdd(){
         console.log("Add");
         let params = {
-          entranceGuardName:""
+          entranceGuardName:this.entranceGuardAddForm.entranceGuardName,
+          enterPartition:this.entranceGuardAddForm.enterPartition,
+          exitPartition:this.entranceGuardAddForm.exitPartition
         }
-        this.$post(ADD_PARTITION,params).then(res=>{
+        this.$post(ADD_ENTRANCEGUARD,params).then(res=>{
           if(res.code === '1'){
             console.log("添加成功！");
             this.$emit('refresh');

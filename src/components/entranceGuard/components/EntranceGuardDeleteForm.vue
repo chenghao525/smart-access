@@ -14,18 +14,26 @@
 </template>
 
 <script>
+  import {DELETE_ENTRANCEGUARD} from '../../../api'
+
+
   export default {
     name: "EntranceGuardDeleteForm",
     props: {
       showDialog: {
         type: Boolean,
         default: false
+      },
+      selectedEntranceGuard:{
+        type: String,
+        default:""
       }
     },
     data() {
       return {
         visible : this.showDialog,
         title: "删除门禁",
+        deletedEntranceGuardID:""
       }
     },
     methods:{
@@ -38,6 +46,18 @@
       },
       handleDelete(){
         console.log("Delete");
+         let params = {
+          entranceGuardId: this.deletedEntranceGuardID,
+        }
+        this.$post(DELETE_ENTRANCEGUARD,params).then(res=>{
+          if(res.code === '1'){
+            console.log("删除成功！");
+            this.$emit('refresh');
+            this.handleCancel();
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
       }
     },
     mounted() {
@@ -50,6 +70,9 @@
         if (!val) {
           this.handleCancel()
         }
+      },
+      selectedEntranceGuard(val,oldVal){
+        this.deletedEntranceGuardID = val;
       }
     }
   }

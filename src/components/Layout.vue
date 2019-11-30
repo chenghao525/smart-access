@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
       <el-menu
-        :default-active="activeIndex2"
+        :default-active="defaultIndex"
         class="my-el-menu"
         mode="horizontal"
         @select="handleSelect"
@@ -15,9 +15,9 @@
           <el-col :span = "12">
             <div class="user-menu-item">
               <div>
-                <el-menu-item index="1">分区</el-menu-item>
-                <el-menu-item index="2" >门禁</el-menu-item>
-                <el-menu-item index="3">人脸识别设备</el-menu-item>
+                <el-menu-item index="1" class="{'active':activeIndex == 1">分区</el-menu-item>
+                <el-menu-item index="2" class="{'active':activeIndex == 2">门禁</el-menu-item>
+                <el-menu-item index="3" class="{'active':activeIndex == 3">人脸识别设备</el-menu-item>
               </div>
             </div>
           </el-col>
@@ -28,7 +28,7 @@
           </el-col>
         </el-row>
       </el-menu>
-        <router-view/>
+      <router-view @hdindex="getHeadIndex"/>
     </div>
 </template>
 
@@ -36,10 +36,13 @@
 <script>
 export default {
   name: 'Layout',
+  // props:{
+  //   activeIndex: Number
+  // },
   data() {
       return {
-        activeIndex: '1',
-        activeIndex2: '1'
+        defaultIndex: '1',
+        activeIndex: '1'
       };
     },
     methods: {
@@ -47,22 +50,41 @@ export default {
         switch(key){
           case '1':
             this.$router.push('/').catch(err => {})
+            this.activeIndex = '1'
             break
           case '2':
             this.$router.push('/EntranceGuard').catch(err => {})
+            this.activeIndex = '2'
             break
           case '3':
             this.$router.push('/FacialRecDevice').catch(err => {})
+            this.activeIndex = '3'
             break
           default:
             break
         }
+      },
+      getHeadIndex(num){
+        console.log("GETTTTTTT")
+        this.activeIndex = num;
+      }
+    },
+    watch:{
+      activeIndex(val, oldVal){
+        console.log(val);
       }
     }
 }
 </script>
 <style scoped>
  .el-col-12[data-v-005bfc5a]{
-   padding:0 10% !important;
+   padding:0 8% 0 1% !important;
  }
+ .user-menu-item{
+   display: flex;
+   justify-content: center;
+   height: 80px;
+   white-space:nowrap;
+ }
+
 </style>

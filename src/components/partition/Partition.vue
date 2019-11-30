@@ -13,12 +13,12 @@
           <el-table-column label="选择" min-width="10%" align="center" header-align="center">
             <template slot-scope="scope">
               <el-radio :label="scope.$index" v-model="selectedPartition"
-              @change.native="getSelectedPartitionID(scope.row)" style="margin-left: 10px;">&nbsp;</el-radio>
+              @change.native="getSelectedPartitionID(scope.row.partitionId)" style="margin-left: 10px;">&nbsp;</el-radio>
             </template>
           </el-table-column>
           <el-table-column label="分区名称" min-width="10%" prop="partitionName" align="center">
           </el-table-column>
-          <el-table-column label="分区编号" min-width="10%" prop="partitionID" align="center">
+          <el-table-column label="分区编号" min-width="10%" prop="partitionId" align="center">
           </el-table-column>
           <el-table-column label="分区下包含的门禁" min-width="70%" prop="partitionEntranceGuard" align="center">
           </el-table-column>
@@ -98,14 +98,13 @@
       hideDeleteDialog(){
         this.showPartitionDeleteDialog = false
       },
-      getSelectedPartitionID(partitionID){
-        this.selectedPartitionID = partitionID;
+      getSelectedPartitionID(partitionId){
+        this.selectedPartitionID = partitionId;
       },
       /**
        * 获取表单数据
        */
       getPartitionList(){
-        console.log("Cha!!")
         this.tableData=[]
         this.$post(GET_PARTITION," ").then(res=>{
           if(res.code === '1'){
@@ -126,6 +125,12 @@
     },
     mounted() {
       this.initData();
+      this.$emit('hdindex',1)
+    },
+    watch:{
+      // selectedPartitionID(val,oldVal){
+      //   consolee.log("Current PID:",this.selectedPartitionID)
+      // }
     }
   }
 

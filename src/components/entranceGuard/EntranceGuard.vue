@@ -12,9 +12,9 @@
               :rules="rules"
               :inline="true">
         <el-form-item label="门禁名称:"
-                      prop="entranceGuardName"
+                      prop="entranceGuardNameSearch"
                       >
-          <el-input v-model="form.entranceGuardName"
+          <el-input v-model="form.entranceGuardNameSearch"
                     placeholder="请填写门禁名"
                     class="search-input">
           </el-input>
@@ -40,8 +40,8 @@
                    header-row-style="background-color:#CCCCCC; color:#000000">
           <el-table-column label="选择" min-width="10%" align="center" header-align="center">
             <template slot-scope="scope">
-              <el-radio :label="scope.$index" v-model="selectedEntranceGuard"
-              @change.native="getSelectedEntranceGuard(scope.row.entranceGuardId)" style="margin-left: 10px;">&nbsp;</el-radio>
+              <el-radio :label="scope.$index" v-model="selectedEntrance"
+              @change.native="getSelectedEntranceGuard(scope.row)" style="margin-left: 10px;">&nbsp;</el-radio>
             </template>
           </el-table-column>
           <el-table-column label="门禁ID" prop="entranceGuardId" min-width="15%" align="center" show-overflow-tooltip>
@@ -61,9 +61,10 @@
         </el-table>
       </div>
        <EntranceGuardEditForm :show-dialog="showEntranceGuardEditDialog"
-                        :selectedEntranceGuard="selectedEntranceGuardID"
+                        :selectedEntranceGuard="selectedEntranceGuardData"
                         @close="hideEntranceGuardEditDialog"
                         @refresh="getEntranceGuard"
+                        :form="JSON.stringify(form)"
       ></EntranceGuardEditForm>
       <EntranceGuardAddForm :show-dialog="showEntranceGuardAddDialog"
                         @close="hideEntranceGuardAddDialog"
@@ -99,22 +100,16 @@
         showEntranceGuardAddDialog:false,
         showEntranceGuardDeleteDialog:false,
         selectedEntranceGuardID:"",
-        tableData: [
-          {
-          entranceGuardId:'1',
-          enterPartition: 'cc',
-          exitPartition:'dd',
-          entranceGuardName:'hgh'
-          }
-        ],
+        selectedEntrance:"",
+        selectedEntranceGuardData:"",
+        tableData: [],
         pagination: {
           currentPage: 1,
-          numOfSinglePages: 1,
-          pageSize: 10,
-          total: 0
+          numOfSinglePages: 10,//pagesize
+          total: 10
         },
         form: {
-          entranceGuardName:''
+          entranceGuardNameSearch:''
         },
         rules: {},
       }
@@ -124,7 +119,7 @@
        * 获取数据
        */
       initData() {
-        getEntranceGuard();
+        this.getEntranceGuard();
       },
       /**
        * 点击重载按钮后重载数据
@@ -143,10 +138,10 @@
         this.$post(GET_ENTRANCEGUARD,params).then(res=>{
           if(res.code === '1'){
             console.log("获取成功！");
-            tableData = res.data.entranceGuardList;
-            currentPage = res.data.currentPage;
-            numOfSinglePages = res.data.numOfSinglePages;
-            total = res.data.total;
+            this.tableData = res.data.entranceGuardList;
+            this.pagination.currentPage = res.data.currentPage;
+            this.pagination.numOfSinglePages = res.data.numOfSinglePages;
+            this.pagination.total = res.data.total;
           }
         }).catch(err=>{
           console.log(err);
@@ -164,8 +159,9 @@
       /**
        * 获取选中门禁ID
        */
-      getSelectedEntranceGuard(entranceGuardID){
-        this.selectedEntranceGuardID = entranceGuardID;
+      getSelectedEntranceGuard(row){
+        this.selectedEntranceGuardID = row.entranceGuardId;
+        this.selectedEntranceGuardData = row;
       },
       handleSearch(form){
       },
@@ -189,7 +185,8 @@
       },
     },
     mounted() {
-      initData();
+      this.initData();
+      this.$emit('hdindex',2)
     }
   }
 </script>

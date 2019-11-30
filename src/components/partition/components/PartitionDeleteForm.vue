@@ -14,6 +14,8 @@
 </template>
 
 <script>
+  import {DELETE_PARTITION} from '../../../api'
+
   export default {
     name: "partitionDeleteForm",
     props: {
@@ -66,6 +68,10 @@
         if (!val) {
           this.handleCancel()
         }
+      },
+      seletedPartitionID(val, oldVal){
+        console.log("PID!!",val)
+        this.deletePartitionID = val
       }
     }
   }
