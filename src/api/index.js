@@ -1,4 +1,6 @@
-const BASE_URL = 'http://10.36.30.134:8003/'
+// const BASE_URL = 'http://10.36.30.134:8003/'
+const BASE_URL = 'http://10.36.30.226:8003/'
+
 
 const API = {
     BASE_URL:BASE_URL,
@@ -9,8 +11,6 @@ const API = {
     GET_PARTITION: 'maintain/getAllPartition', //获取所有分区
 
 
-
-
     /****************** 门禁  *******************/
     ADD_ENTRANCEGUARD:'/maintain/addEntranceGuard',//门禁添加
     DELETE_ENTRANCEGUARD:'/maintain/deleteEntranceGuard',//门禁删除
@@ -19,7 +19,6 @@ const API = {
 
 
     /****************** 人脸识别设备  *******************/
-
     GET_FACEDEVICEINFO: '/maintain/getAllFaceRecDevInfo',//获取所有人脸识别设备信息
     GET_FACEDEVICEINFO_IP: '/maintain/getFaceRecDevInfoByIp',//获取指定人脸识别设备信息（通过ip）
     GET_FACEDEVICEINFO_SN: '/maintain/getFaceRecDevInfoBySn',//获取指定人脸识别设备信息（通过sn）

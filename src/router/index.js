@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import LoginForm from '../components/login/LoginForm'
 import Partition from '../components/partition/Partition'
 import EntranceGuard from '../components/entranceGuard/EntranceGuard'
 import FacialRecDevice from '../components/facialRecDevice/FacialRecDevice'
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'Partition',
       component: Partition
+    },
+    {
+      path: '/login',
+      name: 'LoginForm',
+      component: LoginForm
     },
     {
       path: '/EntranceGuard',

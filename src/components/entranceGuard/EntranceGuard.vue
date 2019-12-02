@@ -111,7 +111,8 @@
         form: {
           entranceGuardNameSearch:''
         },
-        rules: {},
+        rules: {
+        },
       }
     },
     methods:{
