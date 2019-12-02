@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {BASE_URL} from '../api/index'
+import { Loading, Message } from 'element-ui'
 import router from '../router'
 
 

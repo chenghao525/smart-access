@@ -1,14 +1,6 @@
 .my-el-menu{
   height: 80px;
-  padding-left: 100px;
-}
-.web-name{
-  float:left;
-  font-size: 35px;
-  font-weight: bold;
-  padding:15px 0px;
-  color:white;
-  margin-left:1%
+  /* padding-left: 100px; */
 }
 .login{
   color: #FFF;
@@ -105,5 +97,8 @@
 .bottom-btn:hover{
   color: #FFFFFF;
   background: #FFCC00;
+}
+.bottom-btn:focus{
+  background: #37C6C0;
 }
 

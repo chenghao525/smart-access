@@ -44,6 +44,9 @@
         this.$emit('close')
       },
       handleDelete(){
+        if(this.deleteDeviceID === ""){
+          this.$message("请选择需要删除的设备")
+        }
         let params = {
           d_device_id : this.deleteDeviceID
         }

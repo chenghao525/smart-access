@@ -18,13 +18,14 @@ Vue.prototype.$post = post
 Vue.prototype.$get = get
 window.api = API
 
-/* eslint-disable no-new */
-// new Vue({
-//   el: '#app',
-//   router,
-//   components: { Layout },
-//   template: '<Layout/>'
+
+// router.beforeEach((to, from, next) =>{
+  
 // })
+
+
+
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

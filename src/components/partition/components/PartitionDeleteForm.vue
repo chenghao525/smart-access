@@ -44,6 +44,9 @@
         this.$emit('close')
       },
       handleDelete(){
+        if(this.deletePartitionID === ""){
+          this.$message("请选择需要删除的分区")
+        }
         let params = {
           partitionId: this.deletePartitionID,
         }
