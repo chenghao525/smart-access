@@ -9,7 +9,7 @@
                :model="facialDeviceAddForm"
                ref="facialDeviceAddForm"
                :rules="rules">
-          <el-form-item label="设备型号：" prop="d_device_model">
+          <el-form-item label="设备型号:" prop="d_device_model">
             <el-select v-model="facialDeviceAddForm.d_device_model" size="medium" placeholder="请选择设备型号">
               <el-option
                     v-for="item in deviceModelOptions"
@@ -22,17 +22,17 @@
           <el-form-item label="IP:" prop="d_device_ip">
             <el-input v-model="facialDeviceAddForm.d_device_ip" size="medium" placeholder="请输入IP"></el-input>
           </el-form-item>
-          <el-form-item label="方向" prop="d_device_direction">
+          <el-form-item label="分区:" prop="d_device_direction">
             <el-select v-model="facialDeviceAddForm.d_device_direction" size="medium" placeholder="请选择方向">
               <el-option
-                    v-for="item in directionOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    v-for="item in allPartitionName"
+                    :key="item"
+                    :label="item"
+                    :value="item">
             </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="设备所属门禁" prop="d_entranceGuardId">
+          <el-form-item label="设备所属门禁:" prop="d_entranceGuardId">
             <el-select v-model="facialDeviceAddForm.d_entranceGuardId" size="medium" placeholder="请选择设备所属门禁">
               <el-option
                     v-for="item in entranceGuardOptions"
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-  import {ADD_FACEDEVICE} from '../../../api'
+  import {ADD_FACEDEVICE, GET_ALL_PARTITION_NAME} from '../../../api'
 
   export default {
     name: "FacialDeviceAddForm",
@@ -65,6 +65,7 @@
       return {
         visible : this.showDialog,
         title: "新增设备",
+        allPartitionName:[],
         facialDeviceAddForm:{
           d_device_ip:"",
           d_device_model:"",
@@ -87,20 +88,6 @@
           {
           value: 'AAA',
           label: 'AAA'
-          }, 
-        ],
-        directionOptions: [
-          {
-          value: '0',
-          label: '0'
-          }, 
-          {
-          value: '1',
-          label: '1'
-          }, 
-          {
-          value: '2',
-          label: '2'
           }, 
         ],
         entranceGuardOptions: [
@@ -142,9 +129,23 @@
         }).catch(err=>{
           console.log(err);
         });
+      },
+      /**
+       * 获取所有分区名称
+       */
+      getAllPartitionName(){
+        this.$post(GET_ALL_PARTITION_NAME,{}).then(res=>{
+          if(res.code === '1'){
+            console.log("获取成功！");
+            this.allPartitionName = res.data;
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
       }
     },
     mounted() {
+      this.getAllPartitionName();
     },
     watch: {
       showDialog() {

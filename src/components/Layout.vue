@@ -1,5 +1,6 @@
 <template>
-    <div class="navbar">
+<div class="layout-container">
+    <div class="navbar" v-show="!isLoginPage">
       <el-menu
         :default-active="defaultIndex"
         class="my-el-menu"
@@ -30,8 +31,9 @@
           </el-col>
         </el-row>
       </el-menu>
+      </div>
       <router-view @hdindex="getHeadIndex"/>
-    </div>
+</div>
 </template>
 
 
@@ -43,6 +45,7 @@ export default {
   // },
   data() {
       return {
+        isLoginPage: false,
         defaultIndex: '1',
         activeIndex: '1'
       };

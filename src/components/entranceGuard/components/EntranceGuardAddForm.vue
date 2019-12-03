@@ -11,27 +11,27 @@
                :model="entranceGuardAddForm"
                ref="entranceGuardAddForm"
                :rules="rules">
-          <el-form-item label="门禁名称" prop="entranceGuardName">
+          <el-form-item label="门禁名称:" prop="entranceGuardName">
             <el-input v-model="entranceGuardAddForm.entranceGuardName" size="medium" placeholder="请输入门禁名称"></el-input>
           </el-form-item>
-          <el-form-item label="进向连接区域" prop="enterPartition">
+          <el-form-item label="进向连接区域:" prop="enterPartition">
             <el-select v-model="entranceGuardAddForm.enterPartition" size="medium" placeholder="请输入进向连接区域">
               <el-option
-                      v-for="item in enterPartitionOptions"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-              </el-option>
+                    v-for="item in allPartitionName"
+                    :key="item"
+                    :label="item"
+                    :value="item">
+            </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="出向连接区域" prop="exitrPartition">
+          <el-form-item label="出向连接区域:" prop="exitrPartition">
             <el-select v-model="entranceGuardAddForm.exitPartition" size="medium" placeholder="请输入出向连接区域">
               <el-option
-                      v-for="item in exitPartitionOptions"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-              </el-option>
+                    v-for="item in allPartitionName"
+                    :key="item"
+                    :label="item"
+                    :value="item">
+            </el-option>
             </el-select>
           </el-form-item>
       </el-form>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import {ADD_ENTRANCEGUARD} from '../../../api'
+  import {ADD_ENTRANCEGUARD, GET_ALL_PARTITION_NAME} from '../../../api'
 
   export default {
     name: "EntranceGuardAddForm",
@@ -57,6 +57,7 @@
       return {
         visible : this.showDialog,
         title: "新增门禁",
+        allPartitionName:[],
         entranceGuardAddForm:{
           entranceGuardName:"",
           enterPartition:"",
@@ -73,26 +74,6 @@
             {required: true, message: '请输入出向连接区域', trigger: 'blur'}
           ],
         },
-        enterPartitionOptions: [
-          {
-          value: '1',
-          label: '1'
-          }, 
-          {
-          value: '2',
-          label: '2'
-          }, 
-        ],
-        exitPartitionOptions: [
-          {
-          value: '1',
-          label: '1'
-          }, 
-          {
-          value: '2',
-          label: '2'
-          }, 
-        ]
       }
     },
     methods:{
@@ -120,9 +101,23 @@
         }).catch(err=>{
           console.log(err);
         });
+      },
+      /**
+       * 获取所有分区名称
+       */
+      getAllPartitionName(){
+        this.$post(GET_ALL_PARTITION_NAME,{}).then(res=>{
+          if(res.code === '1'){
+            console.log("获取成功！");
+            this.allPartitionName = res.data;
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
       }
     },
     mounted() {
+      this.getAllPartitionName();
     },
     watch: {
       showDialog() {

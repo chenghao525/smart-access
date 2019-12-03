@@ -18,7 +18,7 @@ export default new Router({
       component: Partition
     },
     {
-      path: '/login',
+      path: '/LoginForm',
       name: 'LoginForm',
       component: LoginForm
     },

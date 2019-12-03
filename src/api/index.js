@@ -9,6 +9,7 @@ const API = {
     ADD_PARTITION: '/maintain/addPartition',//添加分区
     DELETE_PARTITION: '/maintain/deletePartition',//删除分区
     GET_PARTITION: 'maintain/getAllPartition', //获取所有分区
+    GET_ALL_PARTITION_NAME: '/maintain/getPartitionName',//获取所有分区名字
 
 
     /****************** 门禁  *******************/

@@ -48,6 +48,14 @@
                   style="margin-left: 38px"
                   >查询</el-button
                 >
+                <el-button
+                  class="search_btn"
+                  type="primary"
+                  size="large"
+                  @click="handleReset(form)"
+                  style="margin-left: 18px"
+                  >清空</el-button
+                >
               </el-form>
             </div>
           </el-col>
@@ -139,7 +147,7 @@
             <el-table-column
               label="操作"
               prop=""
-              min-width="30%"
+              min-width="25%"
               align="center"
             >
               <template slot-scope="scope">
@@ -155,6 +163,7 @@
                 >
               </template>
             </el-table-column>
+            <!-- <el-table-column :render-header="refreshTable" width="5%"> </el-table-column> -->
           </el-table>
           <CustomPagination
             :pagination="pagination"
@@ -208,16 +217,8 @@ export default {
       disableNameSearch: false,
       selectedDevice: "",
       seletedDeleteDeviceID: "",
-      tableData: [
-        {
-          d_device_id: "1",
-          d_device_address: "34",
-          d_device_brand: "er",
-          d_device_model: "654",
-          d_device_firmwareversion: "123",
-          d_device_direction: "22"
-        }
-      ],
+      searchMethod: "",
+      tableData: [],
       form: {
         SN: "",
         IP: "",
@@ -236,7 +237,7 @@ export default {
      * 获取数据
      */
     initData() {
-      this.getDeviceList(this.pagination.currentPage);
+      this.getDeviceList(1);
     },
     /**
      * 点击重载按钮后重载数据
@@ -250,28 +251,41 @@ export default {
       if (e.length !== 0) {
         this.disableIPSearch = true;
         this.disableNameSearch = true;
+        this.searchMethod = GET_FACEDEVICEINFO_SN;
       } else {
         this.disableIPSearch = false;
         this.disableNameSearch = false;
+        this.searchMethod = "";
       }
     },
     inputIP(e) {
       if (e.length !== 0) {
         this.disableSNSearch = true;
         this.disableNameSearch = true;
+        this.searchMethod = GET_FACEDEVICEINFO_IP;
       } else {
         this.disableSNSearch = false;
         this.disableNameSearch = false;
+        this.searchMethod = "";
       }
     },
     inputName(e) {
       if (e.length !== 0) {
         this.disableIPSearch = true;
         this.disableSNSearch = true;
+        this.searchMethod = GET_FACEDEVICEINFO_GUARD;
       } else {
         this.disableIPSearch = false;
         this.disableSNSearch = false;
+        this.searchMethod = "";
       }
+    },
+    refreshTable(h){
+      return (
+          <div class="refresh-btn" style="float:right">
+            <el-button>刷新</el-button>
+          </div>
+      )
     },
     /**
      * 获取表单数据
@@ -315,8 +329,10 @@ export default {
       });
     },
     getCurrentPage(val) {
-      this.pagination.currentPage = val;
-      this.getDeviceList(val);
+      if(this.$route.query.entranceGuardName === ""){
+        this.pagination.currentPage = val;
+        this.getDeviceList(val);
+      }
     },
     /**
      * 获取选中行设备id
@@ -324,7 +340,60 @@ export default {
     getDeviceID(deviceID) {
       this.seletedDeleteDeviceID = deviceID;
     },
-    handleSearch(form) {},
+    getDeviceByGuard(val) {
+      let params = {
+        entranceGuardName: val,
+        currentPage: 1
+      };
+      this.$post(GET_FACEDEVICEINFO_GUARD, params)
+        .then(res => {
+          if (res.code === "1") {
+            if (res.data) {
+              this.tableData = res.data.devList;
+              this.pagination.total = res.data.totalCount;
+              this.pagination.numOfSinglePages = res.data.numOfSinglePages;
+              this.pagination.currentPage = res.data.currentPage;
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handleSearch(form) {
+      if (this.searchMethod === "") {
+        this.$message("请输入关键字");
+        this.getDeviceList(1);
+        return false;
+      }
+      if (this.searchMethod === GET_FACEDEVICEINFO_GUARD) {
+        this.getDeviceByGuard(this.form.entranceGuard);
+      } else {
+        let params = {};
+        if (this.searchMethod === GET_FACEDEVICEINFO_IP) {
+          params = { d_device_address: this.form.IP };
+        } else if (this.searchMethod === GET_FACEDEVICEINFO_SN) {
+          params = { d_device_id: this.form.SN };
+        }
+        this.$post(this.searchMethod, params)
+          .then(res => {
+            if (res.code === "1") {
+              if (res.data) {
+                this.tableData = res.data;
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    },
+    handleReset(form) {
+      this.$refs["form"].resetFields();
+      this.inputSN("");
+      this.inputIP("");
+      this.inputName("");
+    },
     handleAdd() {
       this.showFacialDeviceAddDialog = true;
     },
@@ -339,9 +408,18 @@ export default {
     }
   },
   mounted() {
-    this.initData();
+    if (this.$route.query.entranceGuardName !== "") {
+      this.getDeviceByGuard(this.$route.query.entranceGuardName);
+      this.form.entranceGuard = this.$route.query.entranceGuardName;
+      this.searchMethod = GET_FACEDEVICEINFO_GUARD;
+    } else {
+      this.initData();
+    }
     this.$emit("hdindex", 3);
-  }
+  },
+  // created() {
+  //   this.$route.replace({ path: "/FacialRecDevice" });
+  // }
 };
 </script>
 

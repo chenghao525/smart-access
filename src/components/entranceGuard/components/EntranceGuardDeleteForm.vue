@@ -48,6 +48,7 @@
         console.log("Delete");
         if(this.deletedEntranceGuardID === ""){
           this.$message("请选择需要删除的门禁")
+          return false
         }
          let params = {
           entranceGuardId: this.deletedEntranceGuardID,
