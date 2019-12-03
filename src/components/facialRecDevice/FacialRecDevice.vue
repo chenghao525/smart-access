@@ -54,7 +54,7 @@
                   size="large"
                   @click="handleReset(form)"
                   style="margin-left: 18px"
-                  >清空</el-button
+                  >清空/刷新</el-button
                 >
               </el-form>
             </div>
@@ -110,7 +110,7 @@
             >
             </el-table-column>
             <el-table-column
-              label="方向"
+              label="分区"
               prop="d_device_direction"
               min-width="10%"
               align="center"
@@ -329,7 +329,7 @@ export default {
       });
     },
     getCurrentPage(val) {
-      if(this.$route.query.entranceGuardName === ""){
+      if(!this.$route.query.entranceGuardName){
         this.pagination.currentPage = val;
         this.getDeviceList(val);
       }
@@ -393,6 +393,7 @@ export default {
       this.inputSN("");
       this.inputIP("");
       this.inputName("");
+      this.getDeviceList(1);
     },
     handleAdd() {
       this.showFacialDeviceAddDialog = true;
@@ -408,7 +409,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.query.entranceGuardName !== "") {
+    if (this.$route.query.entranceGuardName) {
       this.getDeviceByGuard(this.$route.query.entranceGuardName);
       this.form.entranceGuard = this.$route.query.entranceGuardName;
       this.searchMethod = GET_FACEDEVICEINFO_GUARD;

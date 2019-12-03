@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Layout from '../components/Layout'
 import LoginForm from '../components/login/LoginForm'
 import Partition from '../components/partition/Partition'
 import EntranceGuard from '../components/entranceGuard/EntranceGuard'
@@ -13,7 +14,13 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path:'/',
+      name: 'Layout',
+      component: Layout,
+      redirect: '/Partition',
+    },
+    {
+      path: '/Partition',
       name: 'Partition',
       component: Partition
     },

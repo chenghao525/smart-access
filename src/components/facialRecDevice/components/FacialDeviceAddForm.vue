@@ -8,14 +8,16 @@
                label-position="right"
                :model="facialDeviceAddForm"
                ref="facialDeviceAddForm"
+               label-width="140px"
+               inline="true"
                :rules="rules">
           <el-form-item label="设备型号:" prop="d_device_model">
             <el-select v-model="facialDeviceAddForm.d_device_model" size="medium" placeholder="请选择设备型号">
               <el-option
                     v-for="item in deviceModelOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    :key="item"
+                    :label="item"
+                    :value="item">
             </el-option>
             </el-select>
           </el-form-item>
@@ -23,7 +25,7 @@
             <el-input v-model="facialDeviceAddForm.d_device_ip" size="medium" placeholder="请输入IP"></el-input>
           </el-form-item>
           <el-form-item label="分区:" prop="d_device_direction">
-            <el-select v-model="facialDeviceAddForm.d_device_direction" size="medium" placeholder="请选择方向">
+            <el-select v-model="facialDeviceAddForm.d_device_direction" size="medium" placeholder="请选择分区">
               <el-option
                     v-for="item in allPartitionName"
                     :key="item"
@@ -51,7 +53,7 @@
 </template>
 
 <script>
-  import {ADD_FACEDEVICE, GET_ALL_PARTITION_NAME} from '../../../api'
+  import {ADD_FACEDEVICE, GET_ALL_PARTITION_NAME, GET_ALL_DEVICE_MODEL} from '../../../api'
 
   export default {
     name: "FacialDeviceAddForm",
@@ -66,6 +68,7 @@
         visible : this.showDialog,
         title: "新增设备",
         allPartitionName:[],
+        deviceModelOptions:[],
         facialDeviceAddForm:{
           d_device_ip:"",
           d_device_model:"",
@@ -73,23 +76,19 @@
           d_entranceGuardId:""
         },
         rules: {
-          // partitionName: [
-          //   {required: true, message: '请输入分区名称', trigger: 'blur'}
-          // ],
-          // partitionNum: [
-          //   {required: true, message: '请输入分区编号', trigger: 'blur'}
-          // ]
+          d_device_model: [
+            {required: true, message: '请选择设备型号', trigger: 'blur'}
+          ],
+          d_device_ip: [
+            {required: true, message: '请输入IP', trigger: 'blur'}
+          ],
+           d_device_direction: [
+            {required: true, message: '请选择分区', trigger: 'blur'}
+          ],
+           d_entranceGuardId: [
+            {required: true, message: '请选择设备所属门禁', trigger: 'blur'}
+          ]
         },
-        deviceModelOptions: [
-          {
-          value: 'zz',
-          label: 'zz'
-          }, 
-          {
-          value: 'AAA',
-          label: 'AAA'
-          }, 
-        ],
         entranceGuardOptions: [
           {
           value: '123',
@@ -114,6 +113,16 @@
       //TODO: get url data
       handleAdd(){
         console.log("Add");
+        this.$refs['facialDeviceAddForm'].validate((valid) => {
+          if (valid) {
+            this.handleUpdate()
+          } else {
+            this.$message.warning('校验失败，请务必填写*标记内容')
+            return false
+          }
+        })
+      },
+      handleUpdate(){
         let params = {
           d_device_ip:this.facialDeviceAddForm.d_device_ip,
           d_device_direction:this.facialDeviceAddForm.d_device_direction,
@@ -142,10 +151,21 @@
         }).catch(err=>{
           console.log(err);
         });
+      },
+      getAllDeviceModel(){
+        this.$post(GET_ALL_DEVICE_MODEL,{}).then(res=>{
+          if(res.code === '1'){
+            console.log("获取成功！");
+            this.deviceModelOptions = res.data;
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
       }
     },
     mounted() {
       this.getAllPartitionName();
+      this.getAllDeviceModel();
     },
     watch: {
       showDialog() {

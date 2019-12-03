@@ -1,6 +1,6 @@
 <template>
-  <div class="login-page-container">
-    <div class="navbar" style="width:100%">
+  <div class="login-page-container note" :style="note">
+    <!-- <div class="navbar" style="width:100%">
       <el-menu
         class="my-el-menu"
         mode="horizontal"
@@ -25,21 +25,21 @@
           </el-col>
         </el-row>
       </el-menu>
-    </div>
+    </div> -->
     <div class="main-content-container">
       <div class="login-container">
+        <div class="login-header">用户登录</div>
         <el-form
           :model="loginForm"
           :rules="rules"
           status-icon
           ref="loginForm"
           label-position="top"
-          v-show="!isWechat"
         >
-          <el-form-item label="" prop="userLogin">
+          <el-form-item label="" prop="username">
             <el-input
               type="text"
-              class="username_input"
+              class="user_input"
               placeholder="用户名称/手机号码"
               v-model="loginForm.username"
             >
@@ -49,7 +49,7 @@
           <el-form-item label="" prop="loginPwd">
             <el-input
               type="password"
-              class="password_input"
+              class="user_input"
               placeholder="输入登录密码"
               v-model="loginForm.loginPwd"
               @keyup.enter.native="checkLogin('loginForm')"
@@ -61,7 +61,7 @@
             <div>
               <el-button
                 class="login_btn"
-                @click="checkLogin('loginForm')"
+                @click="handleLogin('loginForm')"
                 type="primary"
                 size="medium"
               >
@@ -69,7 +69,7 @@
               </el-button>
             </div>
           </el-form-item>
-          <div class="forget-region">
+          <div class="link-region">
             <div class="register_region" @click="goToRegister">
               新用户注册
             </div>
@@ -85,26 +85,39 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import { mapMutations } from "vuex";
+import {USER_LOGIN} from '../../api'
+
 
 export default {
   name: "LoginForm",
   data() {
     return {
+      note: {
+          backgroundImage: "url(" + require("../../assets/big_background.png") + ") ",
+          backgroundPosition: "center center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        },
       loginForm: {
         username: "",
         password: ""
       },
+      rules:{},
       userToken: "",
       isRegister: false
     };
   },
   methods: {
     ...mapMutations(["changeLogin"]),
-    handleLogin() {
+    checkLogin(){
+      console.log("Check")
+    },
+    handleLogin(loginForm) {
       let _this = this;
       let params = {};
-      if (this.loginForm.username === "" || this.loginForm.password === "") {
+      if (this.loginForm.username === "" || this.loginForm.loginPwd === "") {
         alert("账号或密码不能为空");
       } else {
         this.$post(USER_LOGIN, params)
@@ -122,13 +135,52 @@ export default {
             console.log(error);
           });
       }
+    },
+    goToRegister(){
+
+    },
+    goToForgetPwd(){
+
     }
   }
 };
 </script>
 
 <style scoped>
-.main-content-container {
+/* .main-content-container {
+} */
+.login-container{
+  position: absolute;
+  margin-left: 62%;
+  margin-top: 18%;
+}
+.login-page-container{
+  height: 100vh;
+}
+.user_input{
+  width:300px;
+  height: 50px;
+}
+.login_btn{
+  width:300px;
+  height: 50px;
+  margin-top: 20px;
+}
+.login-header{
+  font-size: 35PX;
+  font-family: Georgia;
+  color: white;
+  margin-bottom: 30px;
+}
+.register_region{
+  float: left;
+  color:white;
+  cursor:pointer;
+}
+.forget_span{
+  float: right;
+  color:white;
+  cursor:pointer;
 }
 .el-col-6[data-v-663841b2] {
   padding-left: 5%;

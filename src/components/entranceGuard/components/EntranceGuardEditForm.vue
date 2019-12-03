@@ -80,7 +80,6 @@
        /**
        * 关闭弹框
        */
-      //TODOS: 弹窗更改表格数据了
       handleCancel() {
         this.$refs['entranceGuardEditForm'].resetFields()
         this.visible = false,

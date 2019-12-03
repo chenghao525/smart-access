@@ -25,7 +25,7 @@
                   class="search_btn"
                   type="primary"
                   size="large"
-                  @click="handleSearch(form)"
+                  @click="handleSearch(1)"
                   style="margin-left: 38px"
                   >查询</el-button
                 >
@@ -35,7 +35,7 @@
                   size="large"
                   @click="handleReset(form)"
                   style="margin-left: 18px"
-                  >清空</el-button
+                  >清空/刷新</el-button
                 >
               </el-form>
             </div>
@@ -178,7 +178,7 @@ import EntranceGuardAddForm from "./components/EntranceGuardAddForm";
 import EntranceGuardEditForm from "./components/EntranceGuardEditForm";
 import EntranceGuardDeleteForm from "./components/EntranceGuardDeleteForm";
 import CustomPagination from "../../custom_components/CustomPagination";
-import { GET_ENTRANCEGUARD } from "../../api";
+import { GET_ENTRANCEGUARD, GET_ENTRANCEGUARD_BY_NAME} from "../../api";
 
 export default {
   name: "EntranceGuard",
@@ -196,6 +196,7 @@ export default {
       selectedEntranceGuardID: "",
       selectedEntrance: "",
       selectedEntranceGuardData: "",
+      searchingByName:false,
       tableData: [],
       pagination: {
         currentPage: 1,
@@ -244,7 +245,11 @@ export default {
     },
     getCurrentPage(val) {
       this.pagination.currentPage = val;
-      this.getEntranceGuard(val);
+      if(this.searchingByName){
+        this.handleSearch(val)
+      }else{
+        this.getEntranceGuard(val);
+      }
     },
     handleAdd() {
       this.showPartitionAddDialog = true;
@@ -274,10 +279,29 @@ export default {
       this.selectedEntranceGuardID = row.entranceGuardId;
       this.selectedEntranceGuardData = row;
     },
-    //TODOS: 搜索没做
-    handleSearch(form) {},
+    handleSearch(val) {
+      this.searchingByName = true;
+      let params = {
+        entranceGuardName : this.form.entranceGuardNameSearch,
+        currentPage : val
+      }
+      this.$post(GET_ENTRANCEGUARD_BY_NAME,params).then(res=>{
+        if(res.code === '1'){
+          if(res.data.entranceGuardList){
+            this.tableData = res.data.entranceGuardList;
+            this.pagination.total = res.data.total;
+            this.pagination.numOfSinglePages = res.data.numOfSinglePages;
+            this.pagination.currentPage = res.data.currentPage;
+          }
+        }
+      }).catch(err=>{
+        console.log(err);
+      })
+    },
      handleReset(form){
       this.$refs['form'].resetFields();
+      this.getEntranceGuard(1);
+      this.searchingByName = false;
     },
     handleEdit() {
       this.showEntranceGuardEditDialog = true;

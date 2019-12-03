@@ -5,6 +5,8 @@ const BASE_URL = 'http://10.36.30.226:8003/'
 const API = {
     BASE_URL:BASE_URL,
 
+    /****************** 登录  *******************/
+    USER_LOGIN: '/maintain/userLogin',
     /****************** 分区  *******************/
     ADD_PARTITION: '/maintain/addPartition',//添加分区
     DELETE_PARTITION: '/maintain/deletePartition',//删除分区
@@ -17,6 +19,9 @@ const API = {
     DELETE_ENTRANCEGUARD:'/maintain/deleteEntranceGuard',//门禁删除
     UPDATE_ENTRANCEGUARD:'/maintain/updateEntranceGuard',//门禁更新
     GET_ENTRANCEGUARD:'/maintain/getAllEntranceGuard', //获取所有门禁
+    GET_ENTRANCEGUARD_BY_NAME: '/maintain/getEntranceGuardByName ',//指定门禁名称
+
+  
 
 
     /****************** 人脸识别设备  *******************/
@@ -28,6 +33,7 @@ const API = {
     ADD_FACEDEVICE: '/maintain/addFaceRecDev',//添加人脸识别设备
     GET_FACEDEVICE_OPT_RECORD:'/maintain/getFaceRecDevOptRecord',//获取操作记录
     GET_FACEDEVICE_PERSON:'/maintain/getFaceRecDevPerson',//获取已录入人员
+    GET_ALL_DEVICE_MODEL: '/maintain/getmodel', //获取所有设备型号
     
 
 

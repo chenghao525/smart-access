@@ -11,10 +11,10 @@
                :model="entranceGuardAddForm"
                ref="entranceGuardAddForm"
                :rules="rules">
-          <el-form-item label="门禁名称:" prop="entranceGuardName">
+          <el-form-item label="门禁名称:" prop="entranceGuardName" required>
             <el-input v-model="entranceGuardAddForm.entranceGuardName" size="medium" placeholder="请输入门禁名称"></el-input>
           </el-form-item>
-          <el-form-item label="进向连接区域:" prop="enterPartition">
+          <el-form-item label="进向连接区域:" prop="enterPartition" required>
             <el-select v-model="entranceGuardAddForm.enterPartition" size="medium" placeholder="请输入进向连接区域">
               <el-option
                     v-for="item in allPartitionName"
@@ -24,7 +24,7 @@
             </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="出向连接区域:" prop="exitrPartition">
+          <el-form-item label="出向连接区域:" prop="exitPartition" required>
             <el-select v-model="entranceGuardAddForm.exitPartition" size="medium" placeholder="请输入出向连接区域">
               <el-option
                     v-for="item in allPartitionName"
@@ -61,7 +61,7 @@
         entranceGuardAddForm:{
           entranceGuardName:"",
           enterPartition:"",
-          exitrPartition:""
+          exitPartition:""
         },
         rules: {
           entranceGuardName: [
@@ -70,7 +70,7 @@
           enterPartition: [
             {required: true, message: '请输入进向连接区域', trigger: 'blur'}
           ],
-          exitrPartition: [
+          exitPartition: [
             {required: true, message: '请输入出向连接区域', trigger: 'blur'}
           ],
         },
@@ -87,6 +87,16 @@
       },
       handleAdd(){
         console.log("Add");
+         this.$refs['entranceGuardAddForm'].validate((valid) => {
+          if (valid) {
+            this.handleUpdate()
+          } else {
+            this.$message.warning('校验失败，请务必填写*标记内容')
+            return false
+          }
+        })
+      },
+      handleUpdate(){
         let params = {
           entranceGuardName:this.entranceGuardAddForm.entranceGuardName,
           enterPartition:this.entranceGuardAddForm.enterPartition,
