@@ -26,7 +26,8 @@
           </el-col>
           <el-col :span = "6">
             <div>
-              <div class="login">人员姓名</div>
+              <div class="login">管理员</div>
+              <!-- <UserPopOver></UserPopOver> -->
             </div>
           </el-col>
         </el-row>
@@ -38,6 +39,8 @@
 
 
 <script>
+import UserPopOver from '../custom_components/UserPopOver'
+
 export default {
   name: 'Layout',
   // props:{

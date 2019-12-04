@@ -115,7 +115,6 @@ export default {
       console.log("Check")
     },
     handleLogin(loginForm) {
-      let _this = this;
       let params = {};
       if (this.loginForm.username === "" || this.loginForm.loginPwd === "") {
         alert("账号或密码不能为空");
@@ -123,11 +122,11 @@ export default {
         this.$post(USER_LOGIN, params)
           .then(res => {
             if (res.code === "1") {
-              _this.userToken = "Bearer " + res.data.token;
               // 将用户token保存到vuex中
-              _this.changeLogin({ Authorization: _this.userToken });
-              _this.$router.push("/");
-              alert("登陆成功");
+              let userInfo = res.data;
+              this.$store.commit('SET_USERINFO', userInfo)
+              this.$router.push("/");
+              this.$message("登陆成功");
             }
           })
           .catch(error => {

@@ -154,6 +154,7 @@
                 <el-button
                   type="info"
                   @click="operateRecord(scope.row.d_device_id)"
+                  :selectedOptDeviceID="selectedOptDeviceID"
                   >操作记录</el-button
                 >
                 <el-button
@@ -216,6 +217,7 @@ export default {
       disableIPSearch: false,
       disableNameSearch: false,
       selectedDevice: "",
+      selectedOptDeviceID:"",
       seletedDeleteDeviceID: "",
       searchMethod: "",
       tableData: [],
@@ -314,18 +316,20 @@ export default {
      * 获取操作记录
      */
     operateRecord(deviceID) {
+      this.selectedOptDeviceID = deviceID;
       this.$router.push({
         path: "/FacialRecDevice/OperateRecordTable",
-        query: { deviceID: deviceID }
+        query: { deviceId: deviceID }
       });
     },
     /**
      * 获取已录入人员记录
      */
     faceRecDevPerson(deviceID) {
+     
       this.$router.push({
         path: "/FacialRecDevice/FaceRecDevPersonTable",
-        query: { deviceID: deviceID }
+        query: { deviceId: deviceID }
       });
     },
     getCurrentPage(val) {

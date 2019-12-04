@@ -18,11 +18,17 @@ export default new Router({
       name: 'Layout',
       component: Layout,
       redirect: '/Partition',
+      meta:{
+        requireAuth: true
+      }
     },
     {
       path: '/Partition',
       name: 'Partition',
-      component: Partition
+      component: Partition,
+      meta:{
+        requireAuth: true
+      }
     },
     {
       path: '/LoginForm',
@@ -32,27 +38,84 @@ export default new Router({
     {
       path: '/EntranceGuard',
       name: 'EntranceGuard',
-      component: EntranceGuard
+      component: EntranceGuard,
+      meta:{
+        requireAuth: true
+      }
     },
     {
       path: '/FacialRecDevice',
       name: 'FacialRecDevice',
-      component: FacialRecDevice
+      component: FacialRecDevice,
+      meta:{
+        requireAuth: true
+      }
     },
     {
       path: '/EntranceGuard/DeviceInfoEdit',
       name: 'DeviceInfoEdit',
-      component: DeviceInfoEdit
+      component: DeviceInfoEdit,
+      meta:{
+        requireAuth: true
+      }
     },
     {
       path: '/FacialRecDevice/OperateRecordTable',
       name: 'OperateRecordTable',
-      component: OperateRecordTable
+      component: OperateRecordTable,
+      meta:{
+        requireAuth: true
+      }
     },
     {
       path: '/FacialRecDevice/FaceRecDevPersonTable',
       name: 'FaceRecDevPersonTable',
-      component: FaceRecDevPersonTable
+      component: FaceRecDevPersonTable,
+      meta:{
+        requireAuth: true
+      }
     },
+    //---------------------------------------------------------------------------
+    // {
+    //   path:'/',
+    //   name: 'Layout',
+    //   component: Layout,
+    //   redirect: '/Partition',
+    // },
+    // {
+    //   path: '/Partition',
+    //   name: 'Partition',
+    //   component: Partition
+    // },
+    // {
+    //   path: '/LoginForm',
+    //   name: 'LoginForm',
+    //   component: LoginForm
+    // },
+    // {
+    //   path: '/EntranceGuard',
+    //   name: 'EntranceGuard',
+    //   component: EntranceGuard
+    // },
+    // {
+    //   path: '/FacialRecDevice',
+    //   name: 'FacialRecDevice',
+    //   component: FacialRecDevice
+    // },
+    // {
+    //   path: '/EntranceGuard/DeviceInfoEdit',
+    //   name: 'DeviceInfoEdit',
+    //   component: DeviceInfoEdit
+    // },
+    // {
+    //   path: '/FacialRecDevice/OperateRecordTable',
+    //   name: 'OperateRecordTable',
+    //   component: OperateRecordTable
+    // },
+    // {
+    //   path: '/FacialRecDevice/FaceRecDevPersonTable',
+    //   name: 'FaceRecDevPersonTable',
+    //   component: FaceRecDevPersonTable
+    // },
   ]
 })
