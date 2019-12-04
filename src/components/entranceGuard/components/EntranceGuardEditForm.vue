@@ -81,7 +81,7 @@
        * 关闭弹框
        */
       handleCancel() {
-        this.$refs['entranceGuardEditForm'].resetFields()
+        // this.$refs['entranceGuardEditForm'].resetFields()
         this.visible = false,
         this.$emit('close')
       },
@@ -133,6 +133,7 @@
         }
       },
       selectedEntranceGuard(val, oldVal){
+        console.log("valllll",val)
         if(val){
           this.selectedGuardID = val.entranceGuardId;
         }

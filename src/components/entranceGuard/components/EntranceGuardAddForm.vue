@@ -7,7 +7,7 @@
       <el-form class="form-container"
                label-position="right"
                label-width="140px"
-               inline="true"
+               :inline = 'true'
                :model="entranceGuardAddForm"
                ref="entranceGuardAddForm"
                :rules="rules">

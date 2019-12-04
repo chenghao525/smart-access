@@ -9,7 +9,10 @@
         <el-table class="el-table-container"
                   ref="filterTable"
                   :data="tableData"
-                  header-row-style="background-color:#CCCCCC; color:#000000">
+                  :header-cell-style="{
+                    'background-color':'#CCCCCC',
+                    'color':'#000000'
+                    }">
           <el-table-column label="选择" min-width="10%" align="center" header-align="center">
             <template slot-scope="scope">
               <el-radio :label="scope.$index" v-model="selectedPartition"
@@ -99,7 +102,7 @@
         this.showPartitionDeleteDialog = false
       },
       getSelectedPartitionID(partitionId){
-        this.selectedPartitionID = partitionId;
+        this.selectedPartitionID = String(partitionId);
       },
       /**
        * 获取表单数据
@@ -125,7 +128,7 @@
     },
     mounted() {
       this.initData();
-      this.$emit('hdindex',1)
+      // this.$emit('hdindex',1)
     },
     watch:{
       // selectedPartitionID(val,oldVal){

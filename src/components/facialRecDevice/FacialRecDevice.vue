@@ -84,7 +84,10 @@
             class="el-table-container"
             ref="facialRecDeviceTable"
             :data="tableData"
-            header-row-style="background-color:#CCCCCC; color:#000000"
+            :header-cell-style="{
+              'background-color': '#CCCCCC',
+              color: '#000000'
+            }"
           >
             <el-table-column
               label="选择"
@@ -154,7 +157,6 @@
                 <el-button
                   type="info"
                   @click="operateRecord(scope.row.d_device_id)"
-                  :selectedOptDeviceID="selectedOptDeviceID"
                   >操作记录</el-button
                 >
                 <el-button
@@ -190,7 +192,7 @@
 <script>
 import FacialDeviceAddForm from "./components/FacialDeviceAddForm";
 import FacialDeviceDeleteForm from "./components/FacialDeviceDeleteForm";
-import OperateRecordTable from "./components/OperateRecordTable";
+// import OperateRecordTable from "./components/OperateRecordTable";
 import FaceRecDevPerson from "./components/FaceRecDevPersonTable";
 import CustomPagination from "../../custom_components/CustomPagination";
 import {
@@ -205,7 +207,7 @@ export default {
   components: {
     FacialDeviceAddForm,
     FacialDeviceDeleteForm,
-    OperateRecordTable,
+    // OperateRecordTable,
     FaceRecDevPerson,
     CustomPagination
   },
@@ -217,7 +219,6 @@ export default {
       disableIPSearch: false,
       disableNameSearch: false,
       selectedDevice: "",
-      selectedOptDeviceID:"",
       seletedDeleteDeviceID: "",
       searchMethod: "",
       tableData: [],
@@ -282,12 +283,12 @@ export default {
         this.searchMethod = "";
       }
     },
-    refreshTable(h){
+    refreshTable(h) {
       return (
-          <div class="refresh-btn" style="float:right">
-            <el-button>刷新</el-button>
-          </div>
-      )
+        <div class="refresh-btn" style="float:right">
+          <el-button>刷新</el-button>
+        </div>
+      );
     },
     /**
      * 获取表单数据
@@ -316,9 +317,8 @@ export default {
      * 获取操作记录
      */
     operateRecord(deviceID) {
-      this.selectedOptDeviceID = deviceID;
       this.$router.push({
-        path: "/FacialRecDevice/OperateRecordTable",
+        path: '/FacialRecDevice/OperateRecordTable',
         query: { deviceId: deviceID }
       });
     },
@@ -326,14 +326,13 @@ export default {
      * 获取已录入人员记录
      */
     faceRecDevPerson(deviceID) {
-     
       this.$router.push({
-        path: "/FacialRecDevice/FaceRecDevPersonTable",
+        path: '/FacialRecDevice/FaceRecDevPersonTable',
         query: { deviceId: deviceID }
       });
     },
     getCurrentPage(val) {
-      if(!this.$route.query.entranceGuardName){
+      if (!this.$route.query.entranceGuardName) {
         this.pagination.currentPage = val;
         this.getDeviceList(val);
       }
@@ -420,8 +419,8 @@ export default {
     } else {
       this.initData();
     }
-    this.$emit("hdindex", 3);
-  },
+    // this.$emit("hdindex", 3);
+  }
   // created() {
   //   this.$route.replace({ path: "/FacialRecDevice" });
   // }

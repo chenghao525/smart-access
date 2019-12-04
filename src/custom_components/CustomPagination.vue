@@ -3,16 +3,17 @@
     <el-pagination @size-change="handleSizeChange"
                    @current-change="handleCurrentChange"
                    :current-page="pagination.currentPage"
-                   :page-size="pagination.pageSize"
+                   :page-size="pagination.numOfSinglePages"
                    layout="prev, pager, next, total, jumper"
-                   :total="pagination.total">
+                   :total="pagination.total"
+                   large>
     </el-pagination>
   </div>
 </template>
 
 <script>
 export default {
-  name:'Custom-Pagination',
+  name:'CustomPagination',
   data(){
     return{
       currentPageNum: this.pagination.currentPage

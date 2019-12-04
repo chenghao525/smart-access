@@ -101,4 +101,10 @@
 .bottom-btn:focus{
   background: #37C6C0;
 }
+.el-pagination{
+  padding: 15px 5px;
+}
+.el-pagination button, .el-pagination span:not([class*=suffix]){
+  font-size: 16px;
+}
 

@@ -18,17 +18,17 @@ export default new Router({
       name: 'Layout',
       component: Layout,
       redirect: '/Partition',
-      meta:{
-        requireAuth: true
-      }
+      // meta:{
+      //   requireAuth: true
+      // }
     },
     {
       path: '/Partition',
       name: 'Partition',
       component: Partition,
-      meta:{
-        requireAuth: true
-      }
+      // meta:{
+      //   requireAuth: true
+      // }
     },
     {
       path: '/LoginForm',
@@ -39,41 +39,41 @@ export default new Router({
       path: '/EntranceGuard',
       name: 'EntranceGuard',
       component: EntranceGuard,
-      meta:{
-        requireAuth: true
-      }
+      // meta:{
+      //   requireAuth: true
+      // }
     },
     {
       path: '/FacialRecDevice',
       name: 'FacialRecDevice',
       component: FacialRecDevice,
-      meta:{
-        requireAuth: true
-      }
+      // meta:{
+      //   requireAuth: true
+      // }
     },
     {
       path: '/EntranceGuard/DeviceInfoEdit',
       name: 'DeviceInfoEdit',
       component: DeviceInfoEdit,
-      meta:{
-        requireAuth: true
-      }
+      // meta:{
+      //   requireAuth: true
+      // }
     },
     {
       path: '/FacialRecDevice/OperateRecordTable',
       name: 'OperateRecordTable',
       component: OperateRecordTable,
-      meta:{
-        requireAuth: true
-      }
+      // meta:{
+      //   requireAuth: true
+      // }
     },
     {
       path: '/FacialRecDevice/FaceRecDevPersonTable',
       name: 'FaceRecDevPersonTable',
       component: FaceRecDevPersonTable,
-      meta:{
-        requireAuth: true
-      }
+      // meta:{
+      //   requireAuth: true
+      // }
     },
     //---------------------------------------------------------------------------
     // {

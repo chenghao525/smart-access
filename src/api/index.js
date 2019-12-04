@@ -7,6 +7,8 @@ const API = {
 
     /****************** 登录  *******************/
     USER_LOGIN: '/maintain/userLogin',
+
+    
     /****************** 分区  *******************/
     ADD_PARTITION: '/maintain/addPartition',//添加分区
     DELETE_PARTITION: '/maintain/deletePartition',//删除分区
@@ -20,6 +22,7 @@ const API = {
     UPDATE_ENTRANCEGUARD:'/maintain/updateEntranceGuard',//门禁更新
     GET_ENTRANCEGUARD:'/maintain/getAllEntranceGuard', //获取所有门禁
     GET_ENTRANCEGUARD_BY_NAME: '/maintain/getEntranceGuardByName ',//指定门禁名称
+    GET_ALL_ENTRANCE_NAME:'/maintain/getEntranceName',//获取门禁下拉框
 
   
 

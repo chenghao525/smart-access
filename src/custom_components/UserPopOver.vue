@@ -63,7 +63,7 @@
     display flex
     align-items center
     font-size 16px
-    font-family $txt-family
+    // font-family $txt-family
     font-weight 400
     color #ffffff
     padding-right 10px

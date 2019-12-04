@@ -2,7 +2,7 @@
 <div class="layout-container">
     <div class="navbar" v-show="!isLoginPage">
       <el-menu
-        :default-active="defaultIndex"
+        :default-active="defaultActive"
         class="my-el-menu"
         mode="horizontal"
         @select="handleSelect"
@@ -18,9 +18,9 @@
           <el-col :span = "12">
             <div class="user-menu-item" style="overflow: hidden;">
               <div>
-                <el-menu-item index="1" class="{'active':activeIndex == 1">分区</el-menu-item>
-                <el-menu-item index="2" class="{'active':activeIndex == 2">门禁</el-menu-item>
-                <el-menu-item index="3" class="{'active':activeIndex == 3">人脸识别设备</el-menu-item>
+                <el-menu-item index="/Partition" >分区</el-menu-item>
+                <el-menu-item index="/EntranceGuard" >门禁</el-menu-item>
+                <el-menu-item index="/FacialRecDevice" >人脸识别设备</el-menu-item>
               </div>
             </div>
           </el-col>
@@ -33,7 +33,7 @@
         </el-row>
       </el-menu>
       </div>
-      <router-view @hdindex="getHeadIndex"/>
+      <router-view />
 </div>
 </template>
 
@@ -43,49 +43,53 @@ import UserPopOver from '../custom_components/UserPopOver'
 
 export default {
   name: 'Layout',
-  // props:{
-  //   activeIndex: Number
-  // },
   data() {
       return {
         isLoginPage: false,
         defaultIndex: '1',
-        activeIndex: '1'
+        activeIndex: '1',
+        defaultActive: ''
       };
     },
     methods: {
       handleSelect: function(key, keyPath) {
         switch(key){
-          case '1':
-            this.$router.push('/').catch(err => {})
-            this.activeIndex = '1'
+          case '/Partition':
+            this.$router.push('/Partition').catch(err => {})
             break
-          case '2':
+          case '/EntranceGuard':
             this.$router.push('/EntranceGuard').catch(err => {})
-            this.activeIndex = '2'
             break
-          case '3':
+          case '/FacialRecDevice':
             this.$router.push('/FacialRecDevice').catch(err => {})
-            this.activeIndex = '3'
             break
           default:
             break
         }
       },
       clickName: function(){
-        this.$router.push('/').catch(err => {})
-        this.activeIndex = '1'
+        console.log("Clicked!")
+        this.$router.push('/Partition').catch(err => {})
+        this.defaultActive = '/Partition'
       },
-      getHeadIndex(num){
-        console.log("GETTTTTTT")
-        this.activeIndex = num;
-      }
     },
-    watch:{
-      activeIndex(val, oldVal){
-        console.log(val);
-      }
-    }
+    mounted(){
+      let _this = this
+      let href = window.location.href
+      href = href.split('/#')[1]
+      _this.defaultActive = href
+    },
+    watch: {
+        '$route': (to) => {
+            var self = this;
+            setTimeout(() => {
+                self.defaultActive = to.fullPath;
+            }, 200);
+        },
+        defaultActive(val, oldVal){
+          console.log("Got it!")
+        }
+    },
 }
 </script>
 <style scoped>
@@ -113,5 +117,4 @@ export default {
   color:white;
   margin-left:1%
 }
-
 </style>

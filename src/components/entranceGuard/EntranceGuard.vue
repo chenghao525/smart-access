@@ -74,7 +74,10 @@
             ref="filterTable"
             highlight-current-row
             :data="tableData"
-            header-row-style="background-color:#CCCCCC; color:#000000"
+            :header-cell-style="{
+              'background-color': '#CCCCCC',
+              color: '#000000'
+            }"
           >
             <el-table-column
               label="选择"
@@ -178,7 +181,7 @@ import EntranceGuardAddForm from "./components/EntranceGuardAddForm";
 import EntranceGuardEditForm from "./components/EntranceGuardEditForm";
 import EntranceGuardDeleteForm from "./components/EntranceGuardDeleteForm";
 import CustomPagination from "../../custom_components/CustomPagination";
-import { GET_ENTRANCEGUARD, GET_ENTRANCEGUARD_BY_NAME} from "../../api";
+import { GET_ENTRANCEGUARD, GET_ENTRANCEGUARD_BY_NAME } from "../../api";
 
 export default {
   name: "EntranceGuard",
@@ -195,8 +198,8 @@ export default {
       showEntranceGuardDeleteDialog: false,
       selectedEntranceGuardID: "",
       selectedEntrance: "",
-      selectedEntranceGuardData: "",
-      searchingByName:false,
+      selectedEntranceGuardData: {},
+      searchingByName: false,
       tableData: [],
       pagination: {
         currentPage: 1,
@@ -245,9 +248,9 @@ export default {
     },
     getCurrentPage(val) {
       this.pagination.currentPage = val;
-      if(this.searchingByName){
-        this.handleSearch(val)
-      }else{
+      if (this.searchingByName) {
+        this.handleSearch(val);
+      } else {
         this.getEntranceGuard(val);
       }
     },
@@ -282,24 +285,26 @@ export default {
     handleSearch(val) {
       this.searchingByName = true;
       let params = {
-        entranceGuardName : this.form.entranceGuardNameSearch,
-        currentPage : val
-      }
-      this.$post(GET_ENTRANCEGUARD_BY_NAME,params).then(res=>{
-        if(res.code === '1'){
-          if(res.data.entranceGuardList){
-            this.tableData = res.data.entranceGuardList;
-            this.pagination.total = res.data.total;
-            this.pagination.numOfSinglePages = res.data.numOfSinglePages;
-            this.pagination.currentPage = res.data.currentPage;
+        entranceGuardName: this.form.entranceGuardNameSearch,
+        currentPage: val
+      };
+      this.$post(GET_ENTRANCEGUARD_BY_NAME, params)
+        .then(res => {
+          if (res.code === "1") {
+            if (res.data.entranceGuardList) {
+              this.tableData = res.data.entranceGuardList;
+              this.pagination.total = res.data.total;
+              this.pagination.numOfSinglePages = res.data.numOfSinglePages;
+              this.pagination.currentPage = res.data.currentPage;
+            }
           }
-        }
-      }).catch(err=>{
-        console.log(err);
-      })
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
-     handleReset(form){
-      this.$refs['form'].resetFields();
+    handleReset(form) {
+      this.$refs["form"].resetFields();
       this.getEntranceGuard(1);
       this.searchingByName = false;
     },
@@ -324,7 +329,7 @@ export default {
   },
   mounted() {
     this.initData();
-    this.$emit("hdindex", 2);
+    // this.$emit("hdindex", 2);
   }
 };
 </script>

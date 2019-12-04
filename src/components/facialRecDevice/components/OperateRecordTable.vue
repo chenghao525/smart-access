@@ -16,7 +16,10 @@
             class="el-table-container"
             ref="operateRecordTable"
             :data="tableData"
-            header-row-style="background-color:#CCCCCC; color:#000000"
+            :header-cell-style="{
+              'background-color': '#CCCCCC',
+              color: '#000000'
+            }"
           >
             <el-table-column
               label="操作时间"
@@ -59,9 +62,13 @@
 
 <script>
 import { GET_FACEDEVICE_OPT_RECORD } from "../../../api";
+import CustomPagination from '../../../custom_components/CustomPagination'
 
 export default {
   name: "OperateRecordTable",
+  components:{
+    CustomPagination
+  },
   props:{
     selectedOptDeviceID:{
       type: String,
@@ -108,8 +115,8 @@ export default {
   },
   mounted(){
     if(this.$route.query.deviceId){
-      console.log("YYY")
-      this.deviceID = this.$router.query.deviceId;
+      console.log("YYY",this.$route.query.deviceId)
+      this.deviceID = this.$route.query.deviceId;
     }
     this.getFaceDeviceRecord(1);
   },
