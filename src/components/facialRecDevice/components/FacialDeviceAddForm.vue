@@ -37,14 +37,14 @@
             placeholder="请输入IP"
           ></el-input>
         </el-form-item>
-        <el-form-item label="分区:" prop="d_device_direction">
+        <el-form-item label="方向:" prop="d_device_direction">
           <el-select
             v-model="facialDeviceAddForm.d_device_direction"
             size="medium"
-            placeholder="请选择分区"
+            placeholder="请选择方向"
           >
             <el-option
-              v-for="item in allPartitionName"
+              v-for="item in allDirection"
               :key="item"
               :label="item"
               :value="item"
@@ -101,7 +101,7 @@ export default {
     return {
       visible: this.showDialog,
       title: "新增设备",
-      allPartitionName: [],
+      allDirection: [],
       deviceModelOptions: [],
       entranceGuardOptions:[],
       facialDeviceAddForm: {
