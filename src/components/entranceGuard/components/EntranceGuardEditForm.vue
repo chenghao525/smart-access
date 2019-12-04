@@ -113,7 +113,7 @@
         this.$post(GET_ALL_PARTITION_NAME,{}).then(res=>{
           if(res.code === '1'){
             console.log("获取成功！");
-            this.allPartitionName = res.data;
+            this.allPartitionName = res.data; 
           }
         }).catch(err=>{
           console.log(err);

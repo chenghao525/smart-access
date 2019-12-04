@@ -82,13 +82,11 @@ export default {
     watch: {
         '$route': (to) => {
             var self = this;
+            console.log("Got it!")
             setTimeout(() => {
                 self.defaultActive = to.fullPath;
             }, 200);
         },
-        defaultActive(val, oldVal){
-          console.log("Got it!")
-        }
     },
 }
 </script>
