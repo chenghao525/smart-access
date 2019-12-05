@@ -45,9 +45,9 @@
           >
             <el-option
               v-for="item in allDirection"
-              :key="item"
-              :label="item"
-              :value="item"
+              :key="item.typeId"
+              :label="item.typeName"
+              :value="item.typeId"
             >
             </el-option>
           </el-select>
@@ -101,7 +101,18 @@ export default {
     return {
       visible: this.showDialog,
       title: "新增设备",
-      allDirection: [],
+      allDirection: [
+        {
+            typeId:'0',
+            typeName:'出'
+         },{
+            typeId:'1',
+            typeName:'进'
+         },{
+            typeId:'2',
+            typeName:'双向'
+          },
+      ],
       deviceModelOptions: [],
       entranceGuardOptions:[],
       facialDeviceAddForm: {
@@ -204,7 +215,7 @@ export default {
     }
   },
   mounted() {
-    this.getAllPartitionName();
+    // this.getAllPartitionName();
     this.getAllDeviceModel();
     this.getAllGuardName();
   },

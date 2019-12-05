@@ -113,11 +113,16 @@
             >
             </el-table-column>
             <el-table-column
-              label="分区"
+              label="方向"
               prop="d_device_direction"
               min-width="10%"
               align="center"
             >
+            <template v-slot="scope">
+              <div v-for="(item,index) in allDirection" :key="index">
+                <span v-if="item.typeId===scope.row.unitTypeSysNo">{{item.typeName}}</span>
+              </div>
+            </template>
             </el-table-column>
             <el-table-column
               label="IP"
@@ -222,6 +227,18 @@ export default {
       seletedDeleteDeviceID: "",
       searchMethod: "",
       tableData: [],
+      allDirection: [
+        {
+            typeId:'0',
+            typeName:'出'
+         },{
+            typeId:'1',
+            typeName:'进'
+         },{
+            typeId:'2',
+            typeName:'双向'
+          },
+      ],
       form: {
         SN: "",
         IP: "",
