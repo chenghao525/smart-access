@@ -56,9 +56,6 @@ export default {
     };
   },
   methods: {
-    initData(){
-      this.getFaceDeviceRecPerson(1);
-    },
     handleReturn() {
       this.$router.push({ path: "/FacialRecDevice" });
     },
@@ -86,8 +83,13 @@ export default {
     }
   },
   mounted(){
-    this.initData();
     this.deviceIp = this.$route.query.deviceIp;
+    this.getFaceDeviceRecPerson(1)
+  },
+  watch:{
+    deviceIp(val, oldVal){
+      console.log("bbb",val)
+    }
   }
 };
 </script>

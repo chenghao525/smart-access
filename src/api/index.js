@@ -1,4 +1,4 @@
-const BASE_URL = 'http://10.36.30.226:8003/'
+const BASE_URL = 'http://10.36.30.134:8003/'
 // const BASE_URL = 'http://localhost:8003/'
 
 
@@ -23,8 +23,6 @@ const API = {
     GET_ENTRANCEGUARD:'/maintain/getAllEntranceGuard', //获取所有门禁
     GET_ENTRANCEGUARD_BY_NAME: '/maintain/getEntranceGuardByName ',//指定门禁名称
     GET_ALL_ENTRANCE_NAME:'/maintain/getEntranceName',//获取门禁下拉框
-
-  
 
 
     /****************** 人脸识别设备  *******************/
