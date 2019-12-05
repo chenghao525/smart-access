@@ -127,7 +127,9 @@ export default {
               this.$store.commit('SET_USERINFO', userInfo)
               this.$router.push("/");
               this.$message("登陆成功");
-            }
+            } else if(res.code === '-1'){
+            this.$message(res.msg)
+          }
           })
           .catch(error => {
             alert("账号或密码错误");

@@ -104,7 +104,9 @@ export default {
             this.pagination.total = res.data.total;
             this.pagination.numOfSinglePage = res.data.numOfSinglePage;
           }
-        }
+        } else if(res.code === '-1'){
+            this.$message(res.msg)
+          }
       }).catch(err=>{
         console.log(err);
       })

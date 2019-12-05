@@ -76,11 +76,14 @@
         }
         this.$post(ADD_PARTITION,params).then(res=>{
           if(res.code === '1'){
-            console.log("添加成功！");
+            this.$message("分区添加成功")
             this.$emit('refresh');
             this.handleCancel();
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         }).catch(err=>{
+          this.$message("分区添加失败")
           console.log(err);
         });
       },

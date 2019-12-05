@@ -53,11 +53,14 @@
         }
         this.$post(DELETE_FACEDEVICE,params).then(res=>{
           if(res.code === '1'){
-            console.log("删除成功！");
+            this.$message("设备删除成功")
             this.$emit('refresh');
             this.handleCancel();
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         }).catch(err=>{
+          this.$message("设备删除失败")
           console.log(err);
         });
       }

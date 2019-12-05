@@ -108,10 +108,7 @@ export default {
          },{
             typeId:'1',
             typeName:'进'
-         },{
-            typeId:'2',
-            typeName:'双向'
-          },
+         },
       ],
       deviceModelOptions: [],
       entranceGuardOptions:[],
@@ -165,27 +162,15 @@ export default {
       this.$post(ADD_FACEDEVICE, params)
         .then(res => {
           if (res.code === "1") {
-            console.log("添加成功！");
+            this.$message("新增设备成功")
             this.$emit("refresh");
             this.handleCancel();
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         })
         .catch(err => {
-          console.log(err);
-        });
-    },
-    /**
-     * 获取所有分区名称
-     */
-    getAllPartitionName() {
-      this.$post(GET_ALL_PARTITION_NAME, {})
-        .then(res => {
-          if (res.code === "1") {
-            console.log("获取成功！");
-            this.allPartitionName = res.data;
-          }
-        })
-        .catch(err => {
+          this.$message("新增设备失败")
           console.log(err);
         });
     },
@@ -195,9 +180,12 @@ export default {
           if (res.code === "1") {
             console.log("获取成功！");
             this.deviceModelOptions = res.data;
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         })
         .catch(err => {
+          this.$message(err)
           console.log(err);
         });
     },
@@ -207,6 +195,8 @@ export default {
           if (res.code === "1") {
             console.log("获取成功！");
             this.entranceGuardOptions = res.data;
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         })
         .catch(err => {
@@ -215,7 +205,6 @@ export default {
     }
   },
   mounted() {
-    // this.getAllPartitionName();
     this.getAllDeviceModel();
     this.getAllGuardName();
   },

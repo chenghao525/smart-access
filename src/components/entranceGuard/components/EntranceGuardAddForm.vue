@@ -104,11 +104,15 @@
         }
         this.$post(ADD_ENTRANCEGUARD,params).then(res=>{
           if(res.code === '1'){
-            console.log("添加成功！");
+            this.$message("门禁添加成功")
             this.$emit('refresh');
             this.handleCancel();
           }
+          else if(res.code === '-1'){
+            this.$message(res.msg)
+          }
         }).catch(err=>{
+          this.$message("门禁添加失败")
           console.log(err);
         });
       },
@@ -120,6 +124,8 @@
           if(res.code === '1'){
             console.log("获取成功！");
             this.allPartitionName = res.data;
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         }).catch(err=>{
           console.log(err);

@@ -26,7 +26,7 @@
           </el-col>
           <el-col :span = "6">
             <div>
-              <div class="login">管理员</div>
+              <div class="login" style="font-weight:bold">管理员</div>
               <!-- <UserPopOver></UserPopOver> -->
             </div>
           </el-col>
@@ -91,11 +91,10 @@ export default {
 }
 </script>
 <style scoped>
- .el-col-12[data-v-005bfc5a]{
+ /* .el-col-12[data-v-005bfc5a]{
    padding:0 8% 0 1% !important;
- }
+ } */
  .el-col-6[data-v-005bfc5a]{
-   padding-left: 5%;
    height: 80px;
  }
  .user-menu-item{
@@ -113,6 +112,6 @@ export default {
   font-size: 35px;
   font-weight: bold;
   color:white;
-  margin-left:1%
+  margin-left:100px;
 }
 </style>

@@ -166,12 +166,11 @@
                 >
                 <el-button
                   type="info"
-                  @click="faceRecDevPerson(scope.row.d_device_id)"
+                  @click="faceRecDevPerson(scope.row.d_device_address)"
                   >已录入人员</el-button
                 >
               </template>
             </el-table-column>
-            <!-- <el-table-column :render-header="refreshTable" width="5%"> </el-table-column> -->
           </el-table>
           <CustomPagination
             :pagination="pagination"
@@ -234,10 +233,7 @@ export default {
          },{
             typeId:'1',
             typeName:'进'
-         },{
-            typeId:'2',
-            typeName:'双向'
-          },
+         },
       ],
       form: {
         SN: "",
@@ -300,13 +296,6 @@ export default {
         this.searchMethod = "";
       }
     },
-    refreshTable(h) {
-      return (
-        <div class="refresh-btn" style="float:right">
-          <el-button>刷新</el-button>
-        </div>
-      );
-    },
     /**
      * 获取表单数据
      */
@@ -324,6 +313,8 @@ export default {
               this.pagination.numOfSinglePages = res.data.numOfSinglePages;
               this.pagination.currentPage = res.data.currentPage;
             }
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         })
         .catch(err => {
@@ -342,10 +333,10 @@ export default {
     /**
      * 获取已录入人员记录
      */
-    faceRecDevPerson(deviceID) {
+    faceRecDevPerson(deviceIP) {
       this.$router.push({
         path: '/FacialRecDevice/FaceRecDevPersonTable',
-        query: { deviceId: deviceID }
+        query: { deviceIp: deviceIP }
       });
     },
     getCurrentPage(val) {
@@ -374,6 +365,8 @@ export default {
               this.pagination.numOfSinglePages = res.data.numOfSinglePages;
               this.pagination.currentPage = res.data.currentPage;
             }
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         })
         .catch(err => {
@@ -401,7 +394,9 @@ export default {
               if (res.data) {
                 this.tableData = res.data;
               }
-            }
+            } else if(res.code === '-1'){
+            this.$message(res.msg)
+          }
           })
           .catch(err => {
             console.log(err);

@@ -135,6 +135,7 @@
             >
               <template slot-scope="scope">
                 <el-button
+                  v-if="false"
                   type="info"
                   @click="deviceInfoEdit(scope.row.entranceGuardId)"
                   >设备信息编辑</el-button
@@ -240,6 +241,8 @@ export default {
             this.pagination.currentPage = res.data.currentPage;
             this.pagination.numOfSinglePages = res.data.numOfSinglePages;
             this.pagination.total = res.data.total;
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         })
         .catch(err => {
@@ -296,7 +299,9 @@ export default {
               this.pagination.total = res.data.total;
               this.pagination.numOfSinglePages = res.data.numOfSinglePages;
               this.pagination.currentPage = res.data.currentPage;
-            }
+            } else if(res.code === '-1'){
+            this.$message(res.msg)
+          }
           }
         })
         .catch(err => {
@@ -328,9 +333,14 @@ export default {
     }
   },
   mounted() {
-    this.initData();
+    if(this.$route.query.entranceName){
+      this.form.entranceGuardNameSearch = this.$route.query.entranceName;
+      this.handleSearch(1)
+    }else{
+      this.initData();
+    }
     // this.$emit("hdindex", 2);
-  }
+  },
 };
 </script>
 

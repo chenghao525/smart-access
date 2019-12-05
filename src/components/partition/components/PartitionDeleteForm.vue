@@ -53,11 +53,14 @@
         }
         this.$post(DELETE_PARTITION,params).then(res=>{
           if(res.code === '1'){
-            console.log("删除成功！");
+            this.$message("分区删除成功")
             this.$emit('refresh');
             this.handleCancel();
+          } else if(res.code === '-1'){
+            this.$message(res.msg)
           }
         }).catch(err=>{
+          this.$message("分区删除失败")
           console.log(err);
         });
       }
