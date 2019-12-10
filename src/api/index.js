@@ -1,12 +1,12 @@
-const BASE_URL = 'http://10.36.30.134:8003/'
-// const BASE_URL = 'http://localhost:8003/'
+// const BASE_URL = 'http://192.168.8.5:8003/'
+const BASE_URL = 'http://128.64.203.151:8003/'
 
 
 const API = {
     BASE_URL:BASE_URL,
 
     /****************** 登录  *******************/
-    // USER_LOGIN: '/maintain/userLogin',
+    USER_LOGIN: '/maintain/userLogin',
 
     
     /****************** 分区  *******************/

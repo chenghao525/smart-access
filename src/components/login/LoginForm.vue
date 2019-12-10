@@ -115,27 +115,37 @@ export default {
       console.log("Check")
     },
     handleLogin(loginForm) {
-      let params = {};
-      if (this.loginForm.username === "" || this.loginForm.loginPwd === "") {
-        alert("账号或密码不能为空");
-      } else {
-        this.$post(USER_LOGIN, params)
-          .then(res => {
-            if (res.code === "1") {
-              // 将用户token保存到vuex中
-              let userInfo = res.data;
-              this.$store.commit('SET_USERINFO', userInfo)
-              this.$router.push("/");
-              this.$message("登陆成功");
-            } else if(res.code === '-1'){
-            this.$message(res.msg)
-          }
-          })
-          .catch(error => {
-            alert("账号或密码错误");
-            console.log(error);
-          });
+      let userInfo = {
+        'tokenId': "1111",
+        'userInfo': {
+          'name': this.loginForm.username,
+          'password': this.loginForm.password
+        }
       }
+      this.$store.commit('SET_USERINFO', userInfo)
+      this.$router.push("/");
+      this.$message("登陆成功");
+      // let params = {};
+      // if (this.loginForm.username === "" || this.loginForm.loginPwd === "") {
+      //   alert("账号或密码不能为空");
+      // } else {
+      //   this.$post(USER_LOGIN, params)
+      //     .then(res => {
+      //       if (res.code === "1") {
+      //         // 将用户token保存到vuex中
+      //         let userInfo = res.data;
+      //         this.$store.commit('SET_USERINFO', userInfo)
+      //         this.$router.push("/");
+      //         this.$message("登陆成功");
+      //       } else if(res.code === '-1'){
+      //       this.$message(res.msg)
+      //     }
+      //     })
+      //     .catch(error => {
+      //       alert("账号或密码错误");
+      //       console.log(error);
+      //     });
+      // }
     },
     goToRegister(){
 

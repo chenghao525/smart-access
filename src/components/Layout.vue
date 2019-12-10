@@ -1,6 +1,6 @@
 <template>
 <div class="layout-container">
-    <div class="navbar" v-show="!isLoginPage">
+    <div class="navbar" v-if="$route.meta.requireAuth">
       <el-menu
         :default-active="defaultActive"
         class="my-el-menu"

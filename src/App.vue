@@ -11,7 +11,14 @@ export default {
   name: 'App',
   components:{
     Layout
+  },
+  //delete after testing
+  mounted(){
+    window.onbeforeunload = function (e) {
+                var storage = window.localStorage;
+                storage.clear()
   }
+}
 }
 </script>
 

@@ -3,13 +3,12 @@ const user = {
   // 状态申明
   state: {
     userInfo: {},
-    showNotice: false,
     creator: null, // 创建人
     level: 0 // 用户是否有审核权限 0：无 1：有
   },
 
   // 更新状态
-  mutations: {},
+  mutations: {
   /**
      * 存入用户所有信息，便于所有的组件之间使用
      * 登录后信息存入sessionStorage防止刷新后token消失跳回登录页面
@@ -23,11 +22,8 @@ const user = {
      */
     SET_USERINFO: (state, userInfo) => {
       state.userInfo = userInfo
-      localStorage.setItem('token', state.userInfo.tokenId)
-      localStorage.setItem('memberNo', state.userInfo.memberNo)
+      localStorage.setItem('authToken', state.userInfo.tokenId)
       localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
-      state.showNotice = true
-      localStorage.setItem('showNotice', '1')
     },
 
     /**
@@ -50,7 +46,8 @@ const user = {
       state.userInfo = ''
       localStorage.clear()
     },
-  }
+  },
+}
 
 
 export default user
