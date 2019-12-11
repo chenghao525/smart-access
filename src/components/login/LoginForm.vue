@@ -28,6 +28,7 @@
     </div> -->
     <div class="main-content-container">
       <div class="login-container">
+        <img class="login_logo" src="../../assets/company_logo.png" alt="scg logo">
         <div class="login-header">用户登录</div>
         <el-form
           :model="loginForm"
@@ -38,23 +39,25 @@
         >
           <el-form-item label="" prop="username">
             <el-input
+              prefix-icon="iconfont icon-user"
               type="text"
-              class="user_input"
+              class="user-input"
               placeholder="用户名称/手机号码"
               v-model="loginForm.username"
             >
-              <i slot="prefix" class="el-input__icon el-icon-user-solid"></i>
+            <!-- <i class="icon-user"></i> -->
+              <!-- <i slot="prefix" class="el-input__icon el-icon-user-solid"></i> -->
             </el-input>
           </el-form-item>
           <el-form-item label="" prop="loginPwd">
             <el-input
+              prefix-icon="iconfont icon-mima"
               type="password"
-              class="user_input"
+              class="user-input"
               placeholder="输入登录密码"
               v-model="loginForm.loginPwd"
               @keyup.enter.native="checkLogin('loginForm')"
             >
-              <i slot="prefix" class="el-input__icon el-icon-s-goods"></i>
             </el-input>
           </el-form-item>
           <el-form-item>
@@ -160,28 +163,38 @@ export default {
 <style scoped>
 /* .main-content-container {
 } */
+.user-input>>>.el-input__inner{
+  height: 50px !important;
+  font-size: initial;
+}
+.user-input>>>.el-input__prefix{
+  left: 10px !important;
+}
 .login-container{
   position: absolute;
-  margin-left: 62%;
-  margin-top: 18%;
+  margin-left: 60%;
+  margin-top: 14%;
 }
 .login-page-container{
   height: 100vh;
 }
-.user_input{
+.user-input{
   width:300px;
   height: 50px;
 }
 .login_btn{
   width:300px;
   height: 50px;
+  font-size: 20px;
   margin-top: 20px;
 }
 .login-header{
-  font-size: 35PX;
+  font-size: 20PX;
   font-family: Georgia;
+  text-align: left;
+  width: 300px;
   color: white;
-  margin-bottom: 30px;
+  margin: 15px auto;
 }
 .register_region{
   float: left;
@@ -196,22 +209,6 @@ export default {
 .el-col-6[data-v-663841b2] {
   padding-left: 5%;
   height: 80px;
-}
-.user-menu-item {
-  display: flex;
-  justify-content: center;
-  height: 80px;
-  white-space: nowrap;
-}
-.web-name {
-  float: left;
-  background: #37c6c0;
-  border: 0em;
-  height: 80px;
-  font-size: 35px;
-  font-weight: bold;
-  color: white;
-  margin-left: 1%;
 }
 .login-input {
   margin: 10px 10px 5px 0px;

@@ -105,17 +105,17 @@
         .icon-account
           width 18px
           height 21px
-          background url('../assets/icon/icon_account.png') no-repeat center bottom
+          // background url('../assets/icon/icon_account.png') no-repeat center bottom
 
         .icon_password
           width 18px
           height 21px
-          background url('../assets/icon/icon_password.png') no-repeat center bottom
+          // background url('../assets/icon/icon_password.png') no-repeat center bottom
 
         .icon_switch
           width 18px
           height 21px
-          background url('../assets/icon/icon_switch.png') no-repeat center bottom
+          // background url('../assets/icon/icon_switch.png') no-repeat center bottom
 </style>
 <style lang="stylus">
   .user_popover
