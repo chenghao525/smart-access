@@ -135,7 +135,6 @@
             >
               <template slot-scope="scope">
                 <el-button
-                  v-if="false"
                   type="info"
                   @click="deviceInfoEdit(scope.row.entranceGuardId)"
                   >设备信息编辑</el-button
@@ -218,6 +217,20 @@ export default {
      * 获取数据
      */
     initData() {
+      this.tableData = [
+        {
+							"entranceGuardId":"0001",
+							"entranceGuardName":"施工区门禁",
+							"enterPartition":"生活区",
+							"exitPartition":"施工区"
+        },
+        {
+        "entranceGuardId":"0002",
+                      "entranceGuardName":"办公区门禁",
+                      "enterPartition":"生活区",
+                      "exitPartition":"办公区"
+        }
+      ]
       this.getEntranceGuard(1);
     },
     /**
@@ -229,7 +242,7 @@ export default {
      * 获取表单数据
      */
     getEntranceGuard(val) {
-      this.tableData = [];
+      // this.tableData = [];
       let params = {
         currentPage: val
       };

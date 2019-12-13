@@ -1,6 +1,7 @@
 // const BASE_URL = 'http://192.168.8.5:8003/'
-const BASE_URL = 'http://128.64.203.151:8003/'
+// const BASE_URL = 'http://128.64.203.151:8003/'
 
+const BASE_URL = 'http://localhost:8080/'
 
 const API = {
     BASE_URL:BASE_URL,
@@ -23,6 +24,8 @@ const API = {
     GET_ENTRANCEGUARD:'/maintain/getAllEntranceGuard', //获取所有门禁
     GET_ENTRANCEGUARD_BY_NAME: '/maintain/getEntranceGuardByName ',//指定门禁名称
     GET_ALL_ENTRANCE_NAME:'/maintain/getEntranceName',//获取门禁下拉框
+    GET_ENTRANCEGUARD_DEVICES: '/maintain/getEntranceGuardDevices',//查询门禁设备信息
+    MODIFY_ENTRANCEGUARD_DEVICES: '/maintain/modifyEntranceGuardDevices',//修改门禁设备信息
 
 
     /****************** 人脸识别设备  *******************/
