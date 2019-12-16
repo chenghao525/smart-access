@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "287169",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "609508",
+      "name": "删除",
+      "font_class": "shanchudelete30",
+      "unicode": "e70a",
+      "unicode_decimal": 59146
+    },
+    {
+      "icon_id": "1350124",
+      "name": "删除",
+      "font_class": "delete",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
       "icon_id": "1987009",
       "name": "用户",
       "font_class": "user",
@@ -13,11 +34,25 @@
       "unicode_decimal": 59046
     },
     {
+      "icon_id": "5831304",
+      "name": "删除",
+      "font_class": "shanchu1",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
       "icon_id": "6582317",
       "name": "密码",
       "font_class": "mima",
       "unicode": "e628",
       "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "6966926",
+      "name": "删除",
+      "font_class": "shanchu2",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
     }
   ]
 }

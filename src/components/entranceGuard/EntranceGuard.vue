@@ -242,7 +242,7 @@ export default {
      * 获取表单数据
      */
     getEntranceGuard(val) {
-      // this.tableData = [];
+      this.tableData = [];
       let params = {
         currentPage: val
       };

@@ -1,7 +1,7 @@
-// const BASE_URL = 'http://192.168.8.5:8003/'
+const BASE_URL = 'http://192.168.8.101:8003/'
 // const BASE_URL = 'http://128.64.203.151:8003/'
 
-const BASE_URL = 'http://localhost:8080/'
+// const BASE_URL = 'http://localhost:8080/'
 
 const API = {
     BASE_URL:BASE_URL,
