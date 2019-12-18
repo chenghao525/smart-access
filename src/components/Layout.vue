@@ -25,9 +25,9 @@
             </div>
           </el-col>
           <el-col :span = "6">
-            <div>
-              <div class="login" style="font-weight:bold">管理员</div>
-              <!-- <UserPopOver></UserPopOver> -->
+            <div class="user-popover">
+              <!-- <div class="login" style="font-weight:bold">管理员</div> -->
+              <UserPopover ></UserPopover>
             </div>
           </el-col>
         </el-row>
@@ -39,10 +39,13 @@
 
 
 <script>
-import UserPopOver from '../custom_components/UserPopOver'
+import UserPopover from '../custom_components/UserPopover'
 
 export default {
   name: 'Layout',
+  components:{
+    UserPopover 
+  },
   data() {
       return {
         isLoginPage: false,
@@ -113,5 +116,8 @@ export default {
   font-weight: bold;
   color:white;
   margin-left:100px;
+}
+.user-popover{
+  height: 80px;
 }
 </style>

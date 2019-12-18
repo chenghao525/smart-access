@@ -125,7 +125,7 @@ export default {
           'password': this.loginForm.password
         }
       }
-      this.$store.commit('SET_USERINFO', userInfo)
+      this.$store.commit('SET_USERINFO', userInfo.userInfo)
       this.$router.push("/");
       this.$message("登陆成功");
       // let params = {};

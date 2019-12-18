@@ -256,64 +256,6 @@ export default {
   },
   methods: {
     initData() {
-      // this.res = {
-      //   code: "1",
-      //   msg: "",
-      //   data: {
-      //     devInfo: {
-      //       e_model: "cc 型号",
-      //       e_UPSInfo: "品牌 型号",
-      //       e_NVRInfo: "品牌 型号",
-      //       e_serverInfo: "品牌 型号",
-      //       e_embeddedModuleInfo: "品牌 型号",
-      //       e_switchInfo: "品牌 型号",
-      //       e_televisionInfo: "品牌 型号",
-      //       e_PDUInfo: "品牌 型号",
-      //       e_routerInfo: "品牌 型号",
-      //       e_LTERouterInfo: "品牌 型号",
-      //       gateList: [
-      //         //门禁下已添加的闸机信息列表
-      //         {
-      //           g_id: "01",
-      //           g_entranceGuardId: "001",
-      //           g_brandModel: "品牌-S601",
-      //           g_name: "通道1摆闸"
-      //         },
-      //         {
-      //           g_id: "02",
-      //           g_entranceGuardId: "001",
-      //           g_brandModel: "品牌-S801",
-      //           g_name: "通道2翼闸"
-      //         }
-      //       ],
-      //       cameraList: [
-      //         //门禁下已添加的监控摄像头信息列表
-      //         {
-      //           c_id: "01",
-      //           c_entranceGuardId: "001",
-      //           c_brandModel: "品牌-SLR",
-      //           c_name: "进向监控"
-      //         },
-      //         {
-      //           c_id: "02",
-      //           c_entranceGuardId: "001",
-      //           c_brandModel: "品牌-SKS",
-      //           c_name: "出向监控"
-      //         }
-      //       ]
-      //     },
-      //     g_brandModel: [
-      //       //可选的闸机信息列表
-      //        "s686",  
-      //       "ak47",
-      //     ],
-      //     c_brandModel:[
-      //       //可选的监控摄像头信息列表
-      //        "98k",
-      //       "m4a1",
-      //     ]
-      //   }
-      // };
     },
     //监听打开添加闸机弹框按钮
     openGateDialog() {
@@ -373,7 +315,36 @@ export default {
       }).catch(err=>{
         console.log(err);
       })
-    }
+    },
+    //修改门禁设备信息按钮保存表单
+    handleSave(){
+      let params = {
+          e_entranceGuardId: this.entranceGuardId,
+          e_model: this.deviceInfoForm.e_model,
+          e_UPSInfo: this.deviceInfoForm.e_UPSInfo,
+          e_NVRInfo: this.deviceInfoForm.e_NVRInfo,
+          e_embeddedModuleInfo: this.deviceInfoForm.e_embeddedModuleInfo,
+          e_serverInfo: this.deviceInfoForm.e_serverInfo,
+          e_switchInfo: this.deviceInfoForm.e_switchInfo,
+          e_televisionInfo: this.deviceInfoForm.e_televisionInfo,
+          e_PDUInfo: this.deviceInfoForm.e_PDUInfo,
+          e_routerInfo: this.deviceInfoForm.e_routerInfo,
+          e_LTERouterInfo: this.deviceInfoForm.e_LTERouterInfo,
+          e_addGateList: this.deviceInfoForm.gateList,
+          e_addCameraList: this.deviceInfoForm.cameraList,
+      };
+      this.$post(MODIFY_ENTRANCEGUARD_DEVICES, params).then(res=>{
+        if(res.code === '1'){
+          this.$message(res.msg)
+          this.$router.push({
+          path: "/EntranceGuard"
+        });
+        }
+      }).catch(err=>{
+        console.log(err)
+        this.$message(res.msg)
+      })
+    },
   },
   mounted() {
     this.initData();
