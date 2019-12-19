@@ -44,6 +44,9 @@ import CustomPagination from '../../../custom_components/CustomPagination'
 
 export default {
   name: "FaceRecDevPersonTable",
+  components:{
+    CustomPagination
+  },
   data() {
     return {
       tableData: [],

@@ -1,7 +1,7 @@
 var local = window.location.host;
 var port = window.location.port;
-const BASE_URL = 'http://'+local
-// const BASE_URL = 'http://128.64.203.151:8003/'
+// const BASE_URL = 'http://'+local
+const BASE_URL = 'http://192.168.8.102:8003/'
 
 // const BASE_URL = 'http://localhost:8080/'
 

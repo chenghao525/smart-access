@@ -1,16 +1,19 @@
 <template>
+<div class="userPopover-container" style="height:80px">
+  <div class="userPopover-content">
+    <img class="avatar-img" src="../assets/account_icon.png"></img>
     <el-dropdown trigger="click">
       <span class="dropdown-text">
-        <Avatar class="avatar_img" src="../assets/account_icon.png"></Avatar>{{memberName}}<i class="el-icon-arrow-down el-icon--right"></i>
+        {{memberName}}<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item icon="el-icon-plus">Action 1</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-plus">Action 2</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-plus-outline">Action 3</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-check">Action 4</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-check">Action 5</el-dropdown-item>
+      <el-dropdown-menu class="dropdown-menu" slot="dropdown">
+        <el-dropdown-item icon="el-icon-plus"><i class="iconfont icon-mima2"></i>&nbsp&nbsp&nbsp&nbsp修改密码</el-dropdown-item>
+        <el-dropdown-item icon="el-icon-circle-plus"><i class="iconfont icon-jianchagengxin"></i>&nbsp&nbsp&nbsp&nbsp更新检测</el-dropdown-item>
+        <el-dropdown-item icon="el-icon-circle-plus-outline"><i class="iconfont icon-dengchuzhanghao"></i>&nbsp&nbsp&nbsp&nbsp退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
+    </div>
+</div>
   <!-- <el-popover
     :visible-arrow="false"
     v-model="visible"
@@ -75,17 +78,36 @@ import Avatar from 'vue-avatar'
 </script>
 
 <style scoped>
+  .userPopover-content{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
   .el-dropdown-link {
     cursor: pointer;
     color: #409EFF;
   }
   .el-icon-arrow-down {
-    font-size: 12px;
+    font-size: 20px;
+  }
+  .dropdown-text{
+    display: table-cell;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 18px;
+    padding-bottom:4px;
   }
   .demonstration {
     display: block;
     color: #8492a6;
     font-size: 14px;
     margin-bottom: 20px;
+  }
+  .avatar-img{
+    height: 35px;
+  }
+  .el-dropdown-menu__item{
+    width: 100px !important;
+    text-align: center;
   }
 </style>

@@ -20,6 +20,41 @@
       "unicode_decimal": 59146
     },
     {
+      "icon_id": "677589",
+      "name": "密码",
+      "font_class": "mima1",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "741048",
+      "name": "登出 退出 关闭",
+      "font_class": "dengchutuichuguanbi",
+      "unicode": "e846",
+      "unicode_decimal": 59462
+    },
+    {
+      "icon_id": "954224",
+      "name": "密码",
+      "font_class": "mima2",
+      "unicode": "e69f",
+      "unicode_decimal": 59039
+    },
+    {
+      "icon_id": "1115027",
+      "name": "登出",
+      "font_class": "dengchu",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "1117452",
+      "name": "裕农通-检查更新",
+      "font_class": "yunongtongjianchagengxin",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
       "icon_id": "1350124",
       "name": "删除",
       "font_class": "delete",
@@ -32,6 +67,13 @@
       "font_class": "user",
       "unicode": "e6a6",
       "unicode_decimal": 59046
+    },
+    {
+      "icon_id": "2217941",
+      "name": "检查更新",
+      "font_class": "jianchagengxin",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
     },
     {
       "icon_id": "5831304",
@@ -53,6 +95,27 @@
       "font_class": "shanchu2",
       "unicode": "e62a",
       "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "7236019",
+      "name": "登出",
+      "font_class": "dengchu2",
+      "unicode": "e707",
+      "unicode_decimal": 59143
+    },
+    {
+      "icon_id": "7539774",
+      "name": "登出",
+      "font_class": "dengchu1",
+      "unicode": "e79c",
+      "unicode_decimal": 59292
+    },
+    {
+      "icon_id": "8094177",
+      "name": "登出账号",
+      "font_class": "dengchuzhanghao",
+      "unicode": "e644",
+      "unicode_decimal": 58948
     }
   ]
 }
