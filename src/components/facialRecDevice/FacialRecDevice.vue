@@ -169,6 +169,11 @@
                   @click="faceRecDevPerson(scope.row.d_device_address)"
                   >已录入人员</el-button
                 >
+                <el-button
+                  type="info"
+                  @click="configDevice(scope.row.d_device_id)"
+                  >设置</el-button
+                >
               </template>
             </el-table-column>
           </el-table>
@@ -337,6 +342,15 @@ export default {
       this.$router.push({
         path: '/FacialRecDevice/FaceRecDevPersonTable',
         query: { deviceIp: deviceIP }
+      });
+    },
+    /**
+     * 设置设备
+     */
+    configDevice(deviceID){
+      this.$router.push({
+        path: '/FacialRecDevice/FaceDeviceConfigForm',
+        query: { deviceId: deviceID }
       });
     },
     getCurrentPage(val) {

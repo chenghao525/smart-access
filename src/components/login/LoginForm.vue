@@ -183,6 +183,8 @@ export default {
   height: 50px;
 }
 .login_btn{
+  background-color: #409EFF !important;
+  border-color: #409EFF !important;
   width:300px;
   height: 50px;
   font-size: 20px;

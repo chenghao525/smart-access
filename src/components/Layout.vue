@@ -17,11 +17,9 @@
           </el-col>
           <el-col :span = "12">
             <div class="user-menu-item" style="overflow: hidden;">
-              <div>
                 <el-menu-item index="/Partition" >分区</el-menu-item>
                 <el-menu-item index="/EntranceGuard" >门禁</el-menu-item>
                 <el-menu-item index="/FacialRecDevice" >人脸识别设备</el-menu-item>
-              </div>
             </div>
           </el-col>
           <el-col :span = "6">

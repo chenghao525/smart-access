@@ -61,7 +61,14 @@
 .btn-container{
   padding-top: 30px;
   text-align: center;
-}     
+}   
+.el-button--primary{
+  background-color: #37C6C0 !important;
+  border-color: #37C6C0 !important;
+}
+.el-button--text{
+ color: #909399;
+}
 .top-btn-container{
   display: flex;
   justify-content:flex-end;

@@ -8,6 +8,7 @@ import FacialRecDevice from '../components/facialRecDevice/FacialRecDevice'
 import DeviceInfoEdit from '../components/entranceGuard/components/DeviceInfoEdit'
 import OperateRecordTable from '../components/facialRecDevice/components/OperateRecordTable'
 import FaceRecDevPersonTable from '../components/facialRecDevice/components/FaceRecDevPersonTable'
+import FaceDeviceConfigForm from '../components/facialRecDevice/components/FaceDeviceConfigForm'
 
 Vue.use(Router)
 
@@ -75,6 +76,14 @@ export default new Router({
         requireAuth: true
       }
     },
+    {
+      path:'/FacialRecDevice/FaceDeviceConfigForm',
+      name: 'FaceDeviceConfigForm',
+      component: FaceDeviceConfigForm,
+      meta:{
+        requireAuth: true
+      }
+    }
     //---------------------------------------------------------------------------
     // {
     //   path:'/',

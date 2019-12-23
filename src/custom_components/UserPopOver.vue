@@ -7,9 +7,9 @@
         {{memberName}}<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu class="dropdown-menu" slot="dropdown">
-        <el-dropdown-item icon="el-icon-plus"><i class="iconfont icon-mima2"></i>&nbsp&nbsp&nbsp&nbsp修改密码</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-plus"><i class="iconfont icon-jianchagengxin"></i>&nbsp&nbsp&nbsp&nbsp更新检测</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-plus-outline"><i class="iconfont icon-dengchuzhanghao"></i>&nbsp&nbsp&nbsp&nbsp退出登录</el-dropdown-item>
+        <el-dropdown-item><i class="iconfont icon-mima2"></i>&nbsp&nbsp&nbsp&nbsp修改密码</el-dropdown-item>
+        <el-dropdown-item><i class="iconfont icon-jianchagengxin"></i>&nbsp&nbsp&nbsp&nbsp更新检测</el-dropdown-item>
+        <el-dropdown-item><i class="iconfont icon-dengchuzhanghao"></i>&nbsp&nbsp&nbsp&nbsp退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
     </div>

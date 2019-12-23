@@ -10,7 +10,6 @@
                 :model="form"
                 label-position="right"
                 label-width="120px"
-                :rules="rules"
                 :inline="true"
               >
                 <el-form-item label="门禁名称:" prop="entranceGuardNameSearch">
@@ -146,7 +145,6 @@
                 >
               </template>
             </el-table-column>
-            <!-- <i class="el-icon-refresh refresh_icon" @click="getEntranceGuard"></i> -->
           </el-table>
           <CustomPagination
             :pagination="pagination"
@@ -209,7 +207,6 @@ export default {
       form: {
         entranceGuardNameSearch: ""
       },
-      rules: {}
     };
   },
   methods: {
@@ -233,11 +230,6 @@ export default {
       ]
       this.getEntranceGuard(1);
     },
-    /**
-     * 点击重载按钮后重载数据
-     * @param val
-     */
-    clickedRefresh(val) {},
     /**
      * 获取表单数据
      */
@@ -299,6 +291,10 @@ export default {
       this.selectedEntranceGuardData = row;
     },
     handleSearch(val) {
+      if(this.form.entranceGuardNameSearch===""){
+        this.$message("请输入关键字")
+        return false
+      }
       this.searchingByName = true;
       let params = {
         entranceGuardName: this.form.entranceGuardNameSearch,

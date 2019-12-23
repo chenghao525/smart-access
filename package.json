@@ -16,7 +16,7 @@
   "dependencies": {
     "D": "^1.0.0",
     "axios": "^0.19.0",
-    "element-ui": "^2.0.0-rc.1",
+    "element-ui": "^2.13.0",
     "js-cookie": "^2.2.1",
     "mockjs": "^1.1.0",
     "vue": "^2.5.2",
