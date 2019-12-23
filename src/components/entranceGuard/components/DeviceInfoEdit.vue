@@ -140,17 +140,25 @@
     <el-dialog
       class="gate-dialog-container"
       :visible.sync="gateVisible"
+      :before-close="closeGateDialog"
       title="添加闸机"
       width="600px"
     >
      <div class="gate-dialog-content">
-        <div class="gate-input-area" style="margin-bottom:2%">
-          <span class="gate-input-label" style="font-weight:bold">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名称:</span>
-          <el-input placeholder="请输入闸机名称" v-model="newGate.g_name"> </el-input>
-        </div>
-        <div class="gate-list-area">
-          <span class="gate-input-label" style="font-weight:bold">品牌-型号:</span>
-          <el-select class="gate-list-selector" placeholder="请选择闸机品牌-型号" v-model="newGate.g_brandModel">
+       <el-form :model="newGate"
+               ref="newGate"
+               :inline="true"
+                :rules="rules">
+         <el-form-item label="名称:" prop="g_name">  
+          <el-input placeholder="请输入闸机名称" v-model="newGate.g_name">
+          </el-input>
+         </el-form-item>
+          <el-form-item label="品牌-型号:" prop="g_brandModel"> 
+          <el-select
+            class="gate-list-selector"
+            placeholder="请选择闸机品牌-型号"
+            v-model="newGate.g_brandModel"
+          >
             <el-option
               v-for="item in gateListOptions"
               :key="item"
@@ -159,7 +167,8 @@
             >
             </el-option>
           </el-select>
-        </div>
+          </el-form-item>
+        </el-form>
       </div>
       <div class="btn-container">
         <el-button
@@ -174,17 +183,26 @@
     <el-dialog
       class="camera-dialog-container"
       :visible.sync="cameraVisible"
+      :before-close="closeCameraDialog"
       title="添加摄像头"
       width="600px"
     >
      <div class="camera-dialog-content">
-        <div class="camera-input-area" style="margin-bottom:2%">
-          <span class="camera-input-label" style="font-weight:bold">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名称:</span>
-          <el-input placeholder="请输入摄像头名称" v-model="newCamera.c_name"> </el-input>
-        </div>
-        <div class="camera-list-area">
-          <span class="camera-input-label" style="font-weight:bold">品牌-型号:</span>
-          <el-select class="camera-list-selector" placeholder="请选择摄像头品牌-型号" v-model="newCamera.c_brandModel">
+          <el-form :model="newCamera"
+               ref="newCamera"
+               :inline="true"
+                :rules="rules">
+                <el-form-item label="名称:" prop="c_name">
+          <el-input placeholder="请输入摄像头名称" v-model="newCamera.c_name">
+          </el-input>
+                </el-form-item>
+        
+        <el-form-item label="品牌-型号:" prop="c_brandModel">
+          <el-select
+            class="camera-list-selector"
+            placeholder="请选择摄像头品牌-型号"
+            v-model="newCamera.c_brandModel"
+          >
             <el-option
               v-for="item in cameraListOptions"
               :key="item"
@@ -193,7 +211,8 @@
             >
             </el-option>
           </el-select>
-        </div>
+        </el-form-item>
+          </el-form>
       </div>
       <div class="btn-container">
         <el-button
@@ -233,6 +252,20 @@ export default {
       entranceGuardId: "",
       newGate:{},
       newCamera:{},
+      rules:{
+        g_name:[
+          {required: true, message: '请输入闸机名称', trigger: 'blur'}
+        ],
+        g_brandModel:[
+          {required: true, message: '请选择闸机品牌型号', trigger: 'blur'}
+        ],
+        c_name:[
+          {required: true, message: '请输入摄像机名称', trigger: 'blur'}
+        ],
+        c_brandModel:[
+          {required: true, message: '请选择摄像机品牌型号', trigger: 'blur'}
+        ]
+      },
       deviceInfoForm: {
         e_model: "",
         e_UPSInfo: "",
@@ -265,18 +298,42 @@ export default {
     openCameraDialog(){
       this.cameraVisible = true;
     },
+    //监听关闭添加闸机弹框按钮
+    closeGateDialog(){
+      this.$refs['newGate'].resetFields();
+      this.gateVisible = false;
+    },
+    //监听关闭添加摄像头弹框按钮
+    closeCameraDialog(){
+      this.$refs['newCamera'].resetFields()
+      this.cameraVisible = false;
+    },
     //监听添加闸机按钮
     handleAddGate(){
-      console.log("ccc",this.newGate)
-      this.deviceInfoForm.gateList.push(this.newGate)
-      this.newGate = {}
-      this.gateVisible = false;
+      this.$refs['newGate'].validate((valid) => {
+          if (valid) {
+            console.log("Gate",this.newGate)
+            this.deviceInfoForm.gateList.push(this.newGate);
+            this.newGate = {};
+            this.gateVisible = false;
+          }else{
+            this.$message.warning('校验失败，请务必填写*标记内容')
+            return false
+          }
+      })
     },
     //监听添加摄像头按钮
     handleAddCamera(){
-      this.deviceInfoForm.cameraList.push(this.newCamera)
-      this.newCamera = {}
-      this.cameraVisible = false;
+      this.$refs['newCamera'].validate((valid) => {
+          if (valid) {
+            this.deviceInfoForm.cameraList.push(this.newCamera);
+            this.newCamera = {};
+            this.cameraVisible = false;
+          }else{
+            this.$message.warning('校验失败，请务必填写*标记内容')
+            return false
+          }
+      })
     },
     //删除单一闸机按钮
     handleDelGate(index){
@@ -371,7 +428,7 @@ export default {
   margin: 40px 40px;
 }
 .button-list {
-  min-width: 200px;
+  min-width: 215px;
 }
 .bottom-row {
   margin: 0 200px  0 130px;
