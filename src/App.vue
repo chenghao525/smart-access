@@ -13,12 +13,12 @@ export default {
     Layout
   },
   //delete after testing
-  mounted(){
-    window.onbeforeunload = function (e) {
-                var storage = window.localStorage;
-                storage.clear()
-  }
-}
+//   mounted(){
+//     window.onbeforeunload = function (e) {
+//                 var storage = window.localStorage;
+//                 storage.clear()
+//   }
+// }
 }
 </script>
 

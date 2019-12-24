@@ -74,6 +74,9 @@
   justify-content:flex-end;
   padding: 60px 0;
 }
+.top-btn-container :hover{
+  background: #FFCC00 !important;
+}
 .top-btn{
   font-size: 15px;
   background-color: #37C6C0 !important;
@@ -97,15 +100,20 @@
 .bottom-btn{
   width: 16em;
   height: 3em;
-  background-color: #37C6C0;
+  /* background-color: #37C6C0; */
   border: transparent;
   border-radius: 60px;
 }
-.bottom-btn:hover{
-  color: #FFFFFF;
-  background: #FFCC00;
+.btn-container :hover{
+  background: #FFCC00 !important;
 }
-.bottom-btn:focus{
+.bottom-btn :hover{
+  background: #FFCC00 !important;
+}
+.search-btn-container :hover{
+  background: #FFCC00 !important;
+}
+.bottom-btn :focus{
   background: #37C6C0;
 }
 .el-pagination{

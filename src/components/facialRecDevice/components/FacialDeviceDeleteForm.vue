@@ -24,15 +24,15 @@
         default: false
       },
       selectedDeleteDeviceID:{
-        type: String,
-        default:""
+        type: Array,
+        default:[]
       }
     },
     data() {
       return {
         visible : this.showDialog,
         title: "删除设备",
-        deleteDeviceID:""
+        deleteDeviceID:[]
       }
     },
     methods:{
@@ -40,11 +40,11 @@
        * 关闭弹框
        */
       handleCancel() {
-        this.visible = false,
+        this.visible = false;
         this.$emit('close')
       },
       handleDelete(){
-        if(this.deleteDeviceID === ""){
+        if(this.deleteDeviceID.length === 0){
           this.$message("请选择需要删除的设备")
           return false
         }
@@ -77,7 +77,11 @@
         }
       },
       selectedDeleteDeviceID(val, oldVal){
-        this.deleteDeviceID = val;
+        this.deleteDeviceID = []
+        val.forEach(device=>{
+          this.deleteDeviceID.push(device.d_device_id)
+        })
+        // this.deleteDeviceID = val;
       }
     }
   }
@@ -89,4 +93,5 @@
     border-radius: 8px !important;
     margin: 0px 10px;
   }
+
 </style>

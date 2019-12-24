@@ -20,6 +20,7 @@
                   >
                   </el-input>
                 </el-form-item>
+                <div class="search-btn-container" style="display:inline">
                 <el-button
                   class="search_btn"
                   type="primary"
@@ -36,6 +37,7 @@
                   style="margin-left: 18px"
                   >清空/刷新</el-button
                 >
+                </div>
               </el-form>
             </div>
           </el-col>

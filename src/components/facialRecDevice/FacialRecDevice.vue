@@ -6,9 +6,10 @@
           <el-col :span="18">
             <div class="search-form">
               <el-form
+              class="face-form"
                 ref="form"
                 :model="form"
-                label-position="right"
+                label-position="left"
                 label-width="auto"
                 :rules="rules"
                 :inline="true"
@@ -40,6 +41,7 @@
                   >
                   </el-input>
                 </el-form-item>
+                <div class="search-btn-container" style="display:inline">
                 <el-button
                   class="search_btn"
                   type="primary"
@@ -56,6 +58,7 @@
                   style="margin-left: 18px"
                   >清空/刷新</el-button
                 >
+                </div>
               </el-form>
             </div>
           </el-col>
@@ -75,6 +78,13 @@
                 @click="handleAdd"
                 >设备增加</el-button
               >
+              <el-button
+                class="top-btn"
+                type="primary"
+                size="large"
+                @click="handleConfig"
+                >设置</el-button
+              >
             </div>
           </el-col>
         </el-row>
@@ -88,14 +98,16 @@
               'background-color': '#CCCCCC',
               color: '#000000'
             }"
+            @selection-change="handleSelectionChange"
           >
             <el-table-column
               label="选择"
               min-width="10%"
               align="center"
               header-align="center"
+              type="selection"
             >
-              <template slot-scope="scope">
+              <!-- <template slot-scope="scope">
                 <el-radio
                   :label="scope.$index"
                   v-model="selectedDevice"
@@ -103,7 +115,7 @@
                   style="margin-left: 10px;"
                   >&nbsp;</el-radio
                 >
-              </template>
+              </template> -->
             </el-table-column>
             <el-table-column
               label="SN"
@@ -169,11 +181,6 @@
                   @click="faceRecDevPerson(scope.row.d_device_address)"
                   >已录入人员</el-button
                 >
-                <el-button
-                  type="info"
-                  @click="configDevice(scope.row.d_device_id)"
-                  >设置</el-button
-                >
               </template>
             </el-table-column>
           </el-table>
@@ -191,8 +198,13 @@
           :show-dialog="showFacialDeviceDeleteDialog"
           @close="hideFacialDeviceDeleteDialog"
           @refresh="getDeviceList(1)"
-          :selectedDeleteDeviceID="seletedDeleteDeviceID"
+          :selectedDeleteDeviceID="multipleSelection"
         ></FacialDeviceDeleteForm>
+        <FacialDeviceConfigForm
+          :show-dialog="showFacialDeviceConfigDialog"
+          @close="hideFacialDeviceConfigDialog"
+          :selectedConfigDeviceID="multipleSelection"
+          ></FacialDeviceConfigForm>
       </div>
     </div>
   </div>
@@ -201,6 +213,7 @@
 <script>
 import FacialDeviceAddForm from "./components/FacialDeviceAddForm";
 import FacialDeviceDeleteForm from "./components/FacialDeviceDeleteForm";
+import FacialDeviceConfigForm from "./components/FacialDeviceConfigForm";
 // import OperateRecordTable from "./components/OperateRecordTable";
 import FaceRecDevPerson from "./components/FaceRecDevPersonTable";
 import CustomPagination from "../../custom_components/CustomPagination";
@@ -216,6 +229,7 @@ export default {
   components: {
     FacialDeviceAddForm,
     FacialDeviceDeleteForm,
+    FacialDeviceConfigForm,
     // OperateRecordTable,
     FaceRecDevPerson,
     CustomPagination
@@ -224,9 +238,11 @@ export default {
     return {
       showFacialDeviceAddDialog: false,
       showFacialDeviceDeleteDialog: false,
+      showFacialDeviceConfigDialog:false,
       disableSNSearch: false,
       disableIPSearch: false,
       disableNameSearch: false,
+      multipleSelection:[],
       selectedDevice: "",
       seletedDeleteDeviceID: "",
       searchMethod: "",
@@ -247,8 +263,8 @@ export default {
       },
       pagination: {
         currentPage: 1,
-        total: 0,
-        numOfSinglePages: 10
+        numOfSinglePages: 10, //pagesize
+        total: 10
       },
       rules: {}
     };
@@ -304,10 +320,11 @@ export default {
     /**
      * 获取表单数据
      */
+    //TODO: currentpage 
     getDeviceList(currentPage) {
       this.tableData = [];
       const params = {
-        currentPage: this.pagination.currentPage
+        currentPage: currentPage
       };
       this.$post(GET_FACEDEVICEINFO, params)
         .then(res => {
@@ -347,17 +364,17 @@ export default {
     /**
      * 设置设备
      */
-    configDevice(deviceID){
-      this.$router.push({
-        path: '/FacialRecDevice/FaceDeviceConfigForm',
-        query: { deviceId: deviceID }
-      });
-    },
+    // configDevice(deviceID){
+    //   this.$router.push({
+    //     path: '/FacialRecDevice/FaceDeviceConfigForm',
+    //     query: { deviceId: deviceID }
+    //   });
+    // },
     getCurrentPage(val) {
-      if (!this.$route.query.entranceGuardName) {
+      // if (!this.$route.query.entranceGuardName) {
         this.pagination.currentPage = val;
         this.getDeviceList(val);
-      }
+      // }
     },
     /**
      * 获取选中行设备id
@@ -375,7 +392,7 @@ export default {
           if (res.code === "1") {
             if (res.data) {
               this.tableData = res.data.devList;
-              this.pagination.total = res.data.totalCount;
+              this.pagination.total = res.data.total;
               this.pagination.numOfSinglePages = res.data.numOfSinglePages;
               this.pagination.currentPage = res.data.currentPage;
             }
@@ -424,17 +441,28 @@ export default {
       this.inputName("");
       this.getDeviceList(1);
     },
+    //表格多选
+    handleSelectionChange(val) {
+      console.log("sele",val)
+      this.multipleSelection = val;
+    },
     handleAdd() {
       this.showFacialDeviceAddDialog = true;
     },
     handleDelete() {
       this.showFacialDeviceDeleteDialog = true;
     },
+    handleConfig(){
+      this.showFacialDeviceConfigDialog = true;
+    },
     hideFacialDeviceAddDialog() {
       this.showFacialDeviceAddDialog = false;
     },
     hideFacialDeviceDeleteDialog() {
       this.showFacialDeviceDeleteDialog = false;
+    },
+    hideFacialDeviceConfigDialog() {
+      this.showFacialDeviceConfigDialog = false;
     }
   },
   mounted() {
@@ -459,5 +487,14 @@ export default {
 }
 .search-form {
   padding: 60px 0 !important;
+}
+.face-form{
+  float: left;
+}
+.face-form>>>.el-form-item__label-wrap{
+  margin-left: 0px !important;
+}
+.face-form>>>.el-input{
+  width: 150px;
 }
 </style>

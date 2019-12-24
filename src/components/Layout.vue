@@ -1,6 +1,7 @@
 <template>
 <div class="layout-container">
-    <div class="navbar" v-if="$route.meta.requireAuth">
+    <!-- <div class="navbar" v-if="$route.meta.requireAuth"> -->
+      <div class="navbar">
       <el-menu
         :default-active="defaultActive"
         class="my-el-menu"
@@ -24,8 +25,8 @@
           </el-col>
           <el-col :span = "6">
             <div class="user-popover">
-              <!-- <div class="login" style="font-weight:bold">管理员</div> -->
-              <UserPopover ></UserPopover>
+              <div class="login" style="font-weight:bold">管理员</div>
+              <!-- <UserPopover ></UserPopover> -->
             </div>
           </el-col>
         </el-row>
