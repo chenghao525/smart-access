@@ -81,7 +81,7 @@
        * 关闭弹框
        */
       handleCancel() {
-        // this.$refs['entranceGuardEditForm'].resetFields()
+        this.$refs['entranceGuardEditForm'].resetFields()
         this.visible = false,
         this.$emit('close')
       },

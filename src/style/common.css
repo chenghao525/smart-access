@@ -122,4 +122,11 @@
 .el-pagination button, .el-pagination span:not([class*=suffix]){
   font-size: 16px;
 }
-
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}

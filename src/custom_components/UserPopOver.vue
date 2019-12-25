@@ -14,23 +14,6 @@
     </el-dropdown>
     </div>
 </div>
-  <!-- <el-popover
-    :visible-arrow="false"
-    v-model="visible"
-    width="200"
-    popper-class="user_popover">
-    <div class="user_dropdown_content">
-      <div class="user_dropdown_line">
-        <div class="user_dropdown_item" @click="modifyPassword"><i class="icon_password"></i> 修改密码</div>
-        <div class="user_dropdown_item" @click="goToMyAccount"><i class="icon-account"></i> 我的账号</div>
-        <div class="user_dropdown_item" @click="logout"><i class="icon_switch"></i> 退出登录</div>
-      </div>
-    </div>
-    <span class="user_popover_container" slot="reference">
-      <el-avatar class="avatar_img"></el-avatar>{{memberName}}
-      <i class="el-icon-caret-bottom"></i>
-    </span>
-  </el-popover> -->
 </template>
 
 

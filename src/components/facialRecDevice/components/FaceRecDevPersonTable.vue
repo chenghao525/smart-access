@@ -67,15 +67,15 @@
             </el-table-column>
             <el-table-column label="工号" prop="d_workerId" align="center">
             </el-table-column>
-            <el-table-column label="人员ID" prop="d_PersonId" align="center">
+            <el-table-column label="人员ID" prop="d_personId" align="center">
             </el-table-column>
-            <el-table-column
-              label="操作"
-              prop="operate"
-              min-width="30%"
-              align="center"
-            >
+            <el-table-column label="操作" prop="operate" align="center">
               <template slot-scope="scope">
+                <el-button type="info" @click="handleDelete(scope.row.d_personId)"
+                  >删除</el-button
+                >
+              </template>
+              <!-- <template slot-scope="scope">
                 <el-popover
                   placement="bottom-start"
                   width="180"
@@ -97,7 +97,7 @@
                       size="small"
                       @click="
                         confirmVisible = false;
-                        handleDelete(scope.row.personId);
+                        handleDelete(scope.row.d_personId);
                       "
                       style="font-weight:bold"
                       >确认</el-button
@@ -105,7 +105,7 @@
                   </div>
                   <el-button slot="reference" type="info">删除</el-button>
                 </el-popover>
-              </template>
+              </template> -->
             </el-table-column>
           </el-table>
           <CustomPagination
@@ -152,14 +152,34 @@ export default {
     },
     //删除人员操作按钮
     handleDelete(personId) {
-      console.log("Deleting!", personId);
-      this.$post(DELETE_FACEDEVICE_PERSON,{personId:personId}).then(res=>{
-        if(res.code==='1'){
-          this.$message(res.msg);
-        }
-      }).catch(err=>{
-        this.$message(err);
+      let params = {
+        ip: this.deviceIp,
+        d_personId: personId
+      }
+      this.$confirm("此操作将永久删除该人员, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
       })
+        .then(() => {
+          //点击确定按钮的操作
+          console.log("Deleting!", personId);
+          this.$post(DELETE_FACEDEVICE_PERSON, params)
+            .then(res => {
+              if (res.code === "1") {
+                this.$message(res.msg);
+              }
+              this.getFaceDeviceRecPerson(1)
+            })
+            .catch(err => {
+              console.log("NPPPPP",err)
+              this.$message("删除人员失败");
+            });
+        })
+        .catch(() => {
+          //点击删除按钮的操作
+          console.log("cancel")
+        });
     },
     //清楚查询记录，刷新表格
     handleReset(form) {

@@ -89,7 +89,6 @@
 
 <script>
 import Cookies from 'js-cookie'
-import { mapMutations } from "vuex";
 import {USER_LOGIN} from '../../api'
 
 
@@ -113,7 +112,6 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["changeLogin"]),
     checkLogin(){
       console.log("Check")
     },

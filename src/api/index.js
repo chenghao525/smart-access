@@ -1,7 +1,7 @@
 var local = window.location.host;
 var port = window.location.port;
 // const BASE_URL = 'http://'+local
-const BASE_URL = 'http://192.168.8.102:8003/'
+const BASE_URL = 'http://192.168.8.105:8003/'
 
 // const BASE_URL = 'http://localhost:8080/'
 
@@ -39,8 +39,8 @@ const API = {
     DELETE_FACEDEVICE: '/maintain/deleteFaceRecDev',//删除人脸识别设备
     ADD_FACEDEVICE: '/maintain/addFaceRecDev',//添加人脸识别设备
     GET_FACEDEVICE_OPT_RECORD:'/maintain/getFaceRecDevOptRecord',//获取操作记录
-    // GET_FACEDEVICE_PERSON:'/maintain/getFaceRecDevPerson',//获取已录入人员
-    GET_FACEDEVICE_PERSON:'/maintain/test',//获取已录入人员(测试)
+    GET_FACEDEVICE_PERSON:'/maintain/getFaceRecDevPerson',//获取已录入人员
+    // GET_FACEDEVICE_PERSON:'/maintain/test',//获取已录入人员(测试)
     GET_ALL_DEVICE_MODEL: '/maintain/getmodel', //获取所有设备型号
     DELETE_FACEDEVICE_PERSON:'/maintain/deletePerson',//通过人员id删除指定人员
     SET_FACEDEVICE_TIME:'/maintain/setTime',//设置人脸设备时间

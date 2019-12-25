@@ -449,7 +449,7 @@ export default {
     handleAdd() {
       this.showFacialDeviceAddDialog = true;
     },
-    handleDelete() {
+    handleDelete(){
       this.showFacialDeviceDeleteDialog = true;
     },
     handleConfig(){

@@ -14,7 +14,7 @@ const deviceConfig = {
      * @constructor
      */
     SET_DEVICECONFIG: (state, deviceConfig) => {
-      state.deviceConfig = deviceConfig
+      state.deviceConfig = Object.assign(state.deviceConfig, deviceConfig)
       localStorage.setItem('deviceConfig', JSON.stringify(state.deviceConfig))
     },
   },
