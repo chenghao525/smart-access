@@ -32,6 +32,7 @@
               :label="item.keyName"
               :value="item.keyValue"
             >
+            {{item.keyName}}
             </el-option>
           </el-select>
         </el-form-item>
@@ -73,7 +74,8 @@ import {
   SET_FACEDEVICE_TIME,
   SET_FACEDEVICE_IDENTIFYSCORES,
   SET_FACEDEVICE_IDENTIFYDISTANCE,
-  SET_FACEDEVICE_REPORTURL
+  SET_FACEDEVICE_REPORTURL,
+  SET_FACEDEVICE_IDENTIFYDISTANCE_SCORE
 } from "../../../api";
 import Loading from "../../../custom_components/loading";
 
@@ -196,14 +198,40 @@ export default {
         return success;
     },
     //设置设备距离接口
-    setDistance(val) {
+    // setDistance(val) {
+    //   let success = false;
+    //   let params = {
+    //     ipList: this.selectedFaceDevices,
+    //     identifyDistance: val
+    //   };
+
+    //   this.$post(SET_FACEDEVICE_IDENTIFYDISTANCE, params)
+    //     .then(res => {
+    //       if (res.data) {
+    //         res.data.forEach(msg=>{
+    //           this.$message(msg)
+    //         })
+    //       }
+    //       if (res.code === "1") {
+    //         success = true
+    //       } else {
+    //         success = false
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    //     return success;
+    // },
+    //设置设备分数接口
+    setDistanceScore() {
       let success = false;
       let params = {
         ipList: this.selectedFaceDevices,
-        identifyDistance: val
-      };
-
-      this.$post(SET_FACEDEVICE_IDENTIFYDISTANCE, params)
+        identifyScores: this.facialDeviceConfigForm.identifyScores,
+        identifyDistance: this.facialDeviceConfigForm.identifyDistance
+      }; 
+      this.$post(SET_FACEDEVICE_IDENTIFYDISTANCE_SCORE, params)
         .then(res => {
           if (res.data) {
             res.data.forEach(msg=>{
@@ -211,33 +239,6 @@ export default {
             })
           }
           if (res.code === "1") {
-            success = true
-          } else {
-            success = false
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-        return success;
-    },
-    //设置设备分数接口
-    setScore() {
-      let success = false;
-      let params = {
-        ipList: this.selectedFaceDevices,
-        identifyScores: this.facialDeviceConfigForm.identifyScores
-      };
-      let distance = this.facialDeviceConfigForm.identifyDistance
-      this.$post(SET_FACEDEVICE_IDENTIFYSCORES, params)
-        .then(res => {
-          let distanceSet = this.setDistance(distance);
-          if (res.data) {
-            res.data.forEach(msg=>{
-              this.$message(msg)
-            })
-          }
-          if (res.code === "1" && distanceSet) {
             success = true
           } else {
             success = false
@@ -267,8 +268,8 @@ export default {
           console.log("device", this.selectedFaceDevices);
           let timeSet = this.setTime();
           let urlSet = this.setUrl();
-          let scoreSet = this.setScore();
-          console.log(timeSet,urlSet,scoreSet)
+          let distanceScoreSet = this.setDistanceScore();
+          // console.log(timeSet,urlSet,scoreSet)
           // if (timeSet && urlSet && scoreSet) {
             console.log("All success");
             for(let i=0;i<this.selectedFaceDevices.length;i++){
@@ -302,15 +303,6 @@ export default {
       }
     },
     selectedConfigDeviceID(val, oldVal) {
-      let distanceDict = {
-        0:"无限制",
-        1:"0.5米以内",
-        2:"1米以内",
-        3:"1.5米以内",
-        4:"2米以内",
-        5:"3米以内",
-        6:"4米以内",
-      }
       this.selectedFaceDevices = [];
       val.forEach(device => {
         this.selectedFaceDevices.push(device.d_device_address);
@@ -324,7 +316,7 @@ export default {
             this.facialDeviceConfigForm.url = this.preDeviceConfig[device].url;
             this.facialDeviceConfigForm.time = this.preDeviceConfig[device].time;
             this.facialDeviceConfigForm.identifyScores = this.preDeviceConfig[device].identifyScores;
-            this.facialDeviceConfigForm.identifyDistance = distanceDict[this.preDeviceConfig[device].identifyDistance];
+            this.facialDeviceConfigForm.identifyDistance = this.preDeviceConfig[device].identifyDistance;
             break;
           } else {
             this.facialDeviceConfigForm.url = "";

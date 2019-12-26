@@ -71,7 +71,7 @@
             </el-table-column>
             <el-table-column label="操作" prop="operate" align="center">
               <template slot-scope="scope">
-                <el-button type="info" @click="handleDelete(scope.row.d_personId)"
+                <el-button type="info" @click="handleDelete(scope.row.d_name, scope.row.d_personId)"
                   >删除</el-button
                 >
               </template>
@@ -151,10 +151,11 @@ export default {
       console.log(this.form.personId);
     },
     //删除人员操作按钮
-    handleDelete(personId) {
+    handleDelete(name, personId) {
       let params = {
         ip: this.deviceIp,
-        d_personId: personId
+        d_personId: personId,
+        d_name: name
       }
       this.$confirm("此操作将永久删除该人员, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -193,7 +194,7 @@ export default {
     getFaceDeviceRecPerson(val) {
       let params = {
         d_device_address: this.deviceIp,
-        currentPage: val
+        currentPage: val,
       };
       this.$post(GET_FACEDEVICE_PERSON, params)
         .then(res => {
