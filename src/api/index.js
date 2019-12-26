@@ -8,9 +8,6 @@ const BASE_URL = document.location.origin
 const API = {
     BASE_URL:BASE_URL,
 
-    /****************** 登录  *******************/
-    USER_LOGIN: '/maintain/userLogin',
-
     
     /****************** 分区  *******************/
     ADD_PARTITION: '/maintain/addPartition',//添加分区

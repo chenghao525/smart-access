@@ -38,13 +38,9 @@
 
 
 <script>
-import UserPopover from '../custom_components/UserPopover'
 
 export default {
   name: 'Layout',
-  components:{
-    UserPopover 
-  },
   data() {
       return {
         isLoginPage: false,
