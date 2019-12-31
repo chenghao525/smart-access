@@ -130,11 +130,6 @@
               min-width="10%"
               align="center"
             >
-            <template v-slot="scope">
-              <div v-for="(item,index) in allDirection" :key="index">
-                <span v-if="item.typeId===scope.row.unitTypeSysNo">{{item.typeName}}</span>
-              </div>
-            </template>
             </el-table-column>
             <el-table-column
               label="IP"
