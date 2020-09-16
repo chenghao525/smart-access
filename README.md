@@ -1,30 +1,14 @@
 # smart-access
 
-> A Vue.js project
+# Project Demo
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Login Page
+![pic1](https://github.com/chenghao525/smart-access/blob/master/Demo/6.PNG)
+## Facial recognition devices List with search disable functionality
+![pic1](https://github.com/chenghao525/smart-access/blob/master/Demo/3.PNG)
+## Construction Site Partition Page
+![pic1](https://github.com/chenghao525/smart-access/blob/master/Demo/5.PNG)
+## Entrance Guard configure page
+![pic1](https://github.com/chenghao525/smart-access/blob/master/Demo/1.PNG)
+## Add Facial device pop-up window
+![pic1](https://github.com/chenghao525/smart-access/blob/master/Demo/4.PNG)
